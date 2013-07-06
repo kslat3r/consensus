@@ -8,10 +8,10 @@
 
     url: function() {
       if (this.isNew()) {
-        return '/apiv1/searchresults?api_key=';
+        return '/apiv1/searchresults';
       }
       else {
-        return '/apiv1/searchresults/' + this.get('id') + '?api_key=';
+        return '/apiv1/searchresults/' + this.get('id');
       }
     }
 
@@ -22,7 +22,7 @@
     model: SearchResult.Model,
 
     url: function() {
-      return '/apiv1/searchresults?api_key=';
+      return '/apiv1/searchresults';
     },
 
     removeOld: function(shown_threshold) {

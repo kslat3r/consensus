@@ -1,25 +1,21 @@
 <?php
 
-	class Consensus_Model_Job extends Data_Base {
+	require 'IronWorker.php';
+
+	class Consensus_Model_Job extends Data_Model_Base {
 
 		protected $_collection	= 'jobs';
 		protected $_className	= 'Consensus_Model_Job';
 
-		public function pushToQueue() {
+		public function pushToWorker() {
 			$config = Zend_Registry::get('config');
 
-			try {
-                $AMQP = new Queue_AMQP($config->amqp->exchange, 'job');
-                $AMQP->publishMessage($this->toArray());
+			$Worker = new IronWorker(array(
+    			'token' => $config->ironworker->token,
+    			'project_id' => $config->ironworker->project_id
+			));
 
-                return true;
-            }
-            catch (Exception $e) {
-
-                //logging must be added here
-
-                return false;
-            }
+			$Worker->postTask('searcher', array('job_id' => $this->id));
 		}
 	}
 ?>

@@ -7,10 +7,10 @@
 
     url: function() {
       if (this.isNew()) {
-        return '/apiv1/jobs?api_key=';
+        return '/apiv1/jobs';
       }
       else {
-        return '/apiv1/jobs/' + this.get('id') + '?api_key=';
+        return '/apiv1/jobs/' + this.get('id');
       }
     },
 
@@ -713,7 +713,7 @@
   Job.Router = Base.Router.extend({
 
       routes: {
-          '*path': 'index'
+          '': 'index'
       },
 
       index: function() {

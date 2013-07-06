@@ -6,8 +6,12 @@
 		    Zend_Loader_Autoloader::getInstance()->setFallbackAutoloader(true);
 
 		    $autoloader = new Zend_Application_Module_Autoloader(array('namespace' => 'Data', 'basePath' => APPLICATION_PATH.'/../library/Data'));
-            $autoloader->addResourceType('Models', 'models', 'Data_Model');
-            $autoloader->addResourceType('Mappers', 'models/mappers', 'Data_Model_Mapper');
+            $autoloader->addResourceType('Data_Models', 'models', 'Data_Model');
+            $autoloader->addResourceType('Data_Mappers', 'models/mappers', 'Data_Model_Mapper');
+
+            $autoloader = new Zend_Application_Module_Autoloader(array('namespace' => 'Consensus', 'basePath' => APPLICATION_PATH.'/../library/Consensus'));
+            $autoloader->addResourceType('Consensus_Models', 'models', 'Consensus_Model');
+            $autoloader->addResourceType('Consensus_Mappers', 'models/mappers', 'Consensus_Model_Mapper');
 		}
 
 		protected function _initConfig() {

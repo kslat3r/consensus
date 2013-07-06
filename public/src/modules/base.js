@@ -184,13 +184,13 @@
     	$.ajaxSetup({
         statusCode: {
           403: function(resp) {
-              Backbone.history.navigate('/#/error/403');
+              self.navigate('error/403', {trigger: true});
           },
           404: function(resp) {
-              Backbone.history.navigate('/#/error/404');
+              self.navigate('error/404', {trigger: true});
           },
           500: function(resp) {
-              Backbone.history.navigate('/#/error/500');
+              self.navigate('error/500', {trigger: true});
           }
         },
         beforeSend: function() {

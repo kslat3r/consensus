@@ -14,38 +14,6 @@
             $this->_mongo   = $this->_mongo->$col;
         }
 
-        /*public function buildQuery($params = array()) {
-            $query = $this->select();
-
-            foreach ($params as $key=>$val) {
-                if ($key == 'order_by') {
-                    $query->order($val);
-                }
-                elseif ($key == 'limit') {
-                    $query->limit($val);
-                }
-                else {
-                    if (strpos($key, 'from_') === 0) {
-                        $key = str_replace('from_', '', $key);
-                        $query->where($key.' >= '.$val);
-                    }
-                    elseif (strpos($key, 'to_') === 0) {
-                        $key = str_replace('to_', '', $key);
-                        $query->where($key.' <= '.$val);
-                    }
-                    else {
-                        $query->where($key.' = "'.$val.'"');
-                    }
-                }
-            }
-
-            if (in_array('status', $this->info('cols')) && !isset($params['status'])) {
-                $query->where('status = "'.Data_Base::STATUS_ACTIVE.'"');
-            }
-
-            return $query;
-        }*/
-
         public function find($params = array()) {
             return $this->returnInstances($this->_mongo->find($params));
         }

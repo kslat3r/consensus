@@ -10,6 +10,7 @@ set_include_path(
     implode(PATH_SEPARATOR, array(
         realpath(APPLICATION_PATH . '/../library'),
         realpath(APPLICATION_PATH . '/modules'),
+        realpath(APPLICATION_PATH . '/../library/IronWorker'),
         get_include_path()
     ))
 );

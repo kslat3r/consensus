@@ -34,5 +34,5 @@ $(document).ready(function() {
   var errorRouter     = new Error.Router();
   var jobRouter       = new Job.Router();
 
-  Backbone.history.start();
+  Backbone.history.start({root: '/app'});
 });
