@@ -28,7 +28,7 @@
 	    	$config = Zend_Registry::get('config');
 
 	    	if (!Zend_Registry::isRegistered('mongo')) {
-		    	$connection = new MongoClient($config->mongo->protocol.$config->mongo->hostname.':'.$config->mongo->port);
+		    	$connection = new MongoClient($config->mongo->protocol.$config->mongo->username.':'.$config->mongo->password.'@'.$config->mongo->hostname.':'.$config->mongo->port.'/'.$config->mongo->database_name);
 		    	$db_name	= $config->mongo->database_name;
 		    	$mongo		= $connection->$db_name;
 
