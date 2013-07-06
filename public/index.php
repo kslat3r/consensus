@@ -4,6 +4,9 @@ defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FIL
 
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+echo APPLICATION_ENV;
+exit;
+
 // Ensure library/ is on include_path
 
 set_include_path(
