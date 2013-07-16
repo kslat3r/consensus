@@ -68,7 +68,7 @@
     //internal timer
 
     timer: null,
-    timerIncrement: 5,
+    timerIncrement: 60,
     ajaxOccurring: false,
 
     //constructor
@@ -142,10 +142,6 @@
 
             self.render();
 
-            //push to queue
-
-            self.job.pushToQueue();
-
             //start timer
 
             self.timer = setInterval(function() {
@@ -167,8 +163,9 @@
               //do params
 
               var data = {
-                job_id: self.job.get('id'),
-                order_by: 'source_date_created_timestamp DESC'
+                job_id: self.job.mongoId(),
+                order_by: 'source_date_created_timestamp',
+                direction: -1
               };
 
               if ($('table tr.result').length > 0) {
@@ -208,9 +205,7 @@
 
                   //push job to queue and toggle switch
 
-                  self.job.pushToQueue(function(jobView) {
-                    jobView.ajaxOccurring = false;
-                  }(self));
+                  self.ajaxOccurring = false;
                 }
               });
             }, self.timerIncrement * 1000);

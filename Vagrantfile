@@ -12,6 +12,8 @@ Vagrant.configure("2") do |config|
   # port forward
 
   config.vm.network :forwarded_port, host: 8080, guest: 80
+  config.vm.network :forwarded_port, host: 27017, guest: 27017
+  config.vm.network :forwarded_port, host: 3306, guest: 3306
 
   # provision
   #config.vm.provision :shell, :path => "vagrant-bootstrap.sh"

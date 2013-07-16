@@ -14,8 +14,7 @@
     			'token' => $config->ironworker->token,
     			'project_id' => $config->ironworker->project_id
 			));
-
-			$Worker->postTask('searcher', array('job_id' => $this->id));
+			$Worker->postTask('classifier', array('job_id' => $this->id));
 		}
 	}
 ?>

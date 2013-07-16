@@ -21,34 +21,49 @@
             $data = array();
 
             if (isset($request['job_id'])) {
-                $data['job_id'] = $request['job_id'];
+                $data['job_id'] = new MongoId($request['job_id']);
             }
 
             if (isset($request['order_by'])) {
-                $data['order_by'] = $request['order_by'];
+                $order_by = $request['order_by'];
             }
             else {
-                $data['order_by'] = 'source_date_created_timestamp DESC';
+                $order_by = 'source_date_created_timestamp';
             }
+
+            if (isset($request['direction'])) {
+                $direction = $request['direction'];
+            }
+            else {
+                $direction = -1;
+            }            
 
             if (isset($request['limit'])) {
-                $data['limit'] = $request['limit'];
+                $limit = $request['limit'];
+            }
+            else {
+                $limit = null;
             }
 
-            $SearchResults = $this->_mapper->find($data);
+            $SearchResults = $this->_mapper->find($data, $order_by, $direction, $limit);
 
             $classified_check = true;
 
-            foreach ($SearchResults as $SearchResult) {
-                if ($SearchResult->classified == false) {
-                    $classified_check = false;
+            if (is_array($SearchResults)) {
+                foreach ($SearchResults as $SearchResult) {
+                    if ($SearchResult->classified == false) {
+                        $classified_check = false;
+                    }
                 }
             }
 
             if ($classified_check == true) {
                 $out = array();
-                foreach ($SearchResults as $SearchResult) {
-                    $out[] = $SearchResult->toArray();
+
+                if (is_array($SearchResults)) {
+                    foreach ($SearchResults as $SearchResult) {
+                        $out[] = $SearchResult->toArray();
+                    }
                 }
 
                 $Jobs = new Consensus_Model_Mapper_Jobs();
@@ -58,13 +73,9 @@
                 $this->getResponse()->setHttpResponseCode(200);
                 $this->getResponse()->appendBody(json_encode($out));
             }
-            else if ($classified_check == false) {
-                $this->getResponse()->setHttpResponseCode(200);
-                $this->getResponse()->appendBody(json_encode(false));
-            }
             else {
                 $this->getResponse()->setHttpResponseCode(200);
-                $this->getResponse()->appendBody(json_encode(array()));
+                $this->getResponse()->appendBody(json_encode(false));
             }
     	}
 

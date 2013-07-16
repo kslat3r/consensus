@@ -22,7 +22,7 @@
 
         public function __get($key) {
             if ($key == 'id') {
-                return $this->_details[$this->_pk];
+                return (string) $this->_details[$this->_pk];
             }
             else {
                 return isset($this->_details[$key]) ? $this->_details[$key] : null;

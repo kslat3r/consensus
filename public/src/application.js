@@ -23,9 +23,13 @@ var Consensus = {
   templates: {}
 };
 
+Backbone.Model.prototype.mongoId = function() {
+  return this.get('_id').$id;
+}
+
 //go!
 
-$(document).ready(function() {
+$(document).ready(function() {  
   var Base          = Consensus.module('base');
   var Error         = Consensus.module('error');
   var Job           = Consensus.module('job');

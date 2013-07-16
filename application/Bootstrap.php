@@ -49,8 +49,7 @@
 
 	    	if (!$Session instanceof Data_Model_Session) {
 	    		$Session 				= new Data_Model_Session();
-	    		$Session->_id			= md5(uniqid().Zend_Session::getId());
-				$Session->session_id	= Zend_Session::getId();
+	    		$Session->session_id	= Zend_Session::getId();
 	    		$Session->date_created 	= date('Y-m-d H:i:s');
 	    		$Session->save();
 	    	}
