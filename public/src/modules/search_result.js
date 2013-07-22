@@ -26,7 +26,9 @@
     },
 
     removeOld: function(shown_threshold) {
-      this.models = this.slice(0, shown_threshold - 1);
+      if (this.length > shown_threshold) {
+        this.models = this.slice(0, shown_threshold - 1);
+      }
     },
 
     performSort: function(sort_column, sort_direction) {
