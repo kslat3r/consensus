@@ -57,7 +57,7 @@
                 }
             }
 
-            if ($classified_check == true) {
+            if ($classified_check == true && count($SearchResults) > 0) {
                 $out = array();
 
                 if (is_array($SearchResults)) {
@@ -68,8 +68,7 @@
 
                 $Jobs = new Consensus_Model_Mapper_Jobs();
                 $Job = $Jobs->findById($data['job_id']);
-                $Job->pushToWorker();
-
+                
                 $this->getResponse()->setHttpResponseCode(200);
                 $this->getResponse()->appendBody(json_encode($out));
             }

@@ -43,12 +43,12 @@
 	    protected function _initSession() {
 	    	Zend_Session::start();
 
-	    	$Sessions 	= new Data_Model_Mapper_Sessions();
+	    	$Sessions 	= new Consensus_Model_Mapper_Sessions();
 	    	$Sessions	= $Sessions->find(array('session_id'=>Zend_Session::getId()));
 	    	$Session	= isset($Sessions[0]) ? $Sessions[0] : null;
 
-	    	if (!$Session instanceof Data_Model_Session) {
-	    		$Session 				= new Data_Model_Session();
+	    	if (!$Session instanceof Consensus_Model_Session) {
+	    		$Session 				= new Consensus_Model_Session();
 	    		$Session->session_id	= Zend_Session::getId();
 	    		$Session->date_created 	= date('Y-m-d H:i:s');
 	    		$Session->save();

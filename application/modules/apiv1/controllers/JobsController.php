@@ -22,6 +22,21 @@
     	}
 
     	public function getAction() {
+            $params = $this->getRequest()->getParams();
+            $extra  = explode('&', $params['id']);
+            
+            if (count($extra) == 2) {
+                $Job = $this->_mapper->findById($extra[0]);
+
+                if ($Job instanceof Consensus_Model_Job) {
+                    $Job->pushToWorker();
+
+                    $this->getResponse()->setHttpResponseCode(200);
+                    $this->getResponse()->appendBody(json_encode($Job->toArray()));
+                    return;
+                }
+            }
+
             $this->getResponse()->setHttpResponseCode(404);
             return;
     	}

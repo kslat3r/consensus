@@ -23,8 +23,8 @@
       }
     },
 
-    pushToQueue: function(callback) {
-      $.get('/apiv1/jobs/' + this.get('id') + '?api_key=' + '&push=true', function() {
+    pushToWorker: function(callback) {
+      $.get('/apiv1/jobs/' + this.mongoId() + '&push=true', function() {
         if (typeof(callback) == 'function') {
           callback();
         }
@@ -37,7 +37,7 @@
     model: Job.Model,
 
     url: function() {
-      return '/apiv1/jobs?api_key=';
+      return '/apiv1/jobs';
     }
   });
 
@@ -51,7 +51,6 @@
       'click ul.view_options li a': 'switchView',
       'click li#to_top a': 'goToTop'
     },
-
 
     //config
 
@@ -68,7 +67,7 @@
     //internal timer
 
     timer: null,
-    timerIncrement: 60,
+    timerIncrement: 5,
     ajaxOccurring: false,
 
     //constructor
@@ -176,34 +175,38 @@
                 data: data,
                 success: function(collection, response) {
 
-                  //add models to collection
+                  if (response != false) {
 
-                  self.search_results_view.collection.add(collection.models);
-                  self.search_results_view.removeOld();
+                    //add models to collection
 
-                  //assign some config values
+                    self.search_results_view.collection.add(collection.models);
+                    
+                    //assign some config values
 
-                  self.search_results_view.loading = false;
+                    self.search_results_view.loading = false;
 
-                  //render
+                    //render
 
-                  self.search_results_view.render();
+                    self.search_results_view.render();
 
-                  //add most recent search to chart
+                    //add most recent search to chart
 
-                  search = new Backbone.Model();
-                  search.set('search_results', collection);
-                  self.chart_view.collection.add(search);
+                    search = new Backbone.Model();
+                    search.set('search_results', collection);
+                    self.chart_view.collection.add(search);
 
-                  //render chart view
+                    //render chart view
 
-                  self.chart_view.render();
+                    self.chart_view.render();
 
-                  //render
+                    //render
 
-                  self.render();
+                    self.render();
 
-                  //push job to queue and toggle switch
+                    //push job to queue and toggle switch
+
+                    self.job.pushToWorker();                    
+                  }
 
                   self.ajaxOccurring = false;
                 }

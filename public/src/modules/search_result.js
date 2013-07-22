@@ -26,7 +26,7 @@
     },
 
     removeOld: function(shown_threshold) {
-      this.models = this.slice(shown_threshold*-1);
+      this.models = this.slice(0, shown_threshold - 1);
     },
 
     performSort: function(sort_column, sort_direction) {
@@ -86,7 +86,7 @@
     sort_column: 'date',
     sort_direction: 'desc',
 
-    shown_threshold: 100,
+    shown_threshold: 50,
 
     views: [],
 
@@ -94,7 +94,7 @@
     loading_more: false,
 
     initialize: function() {
-      this.preloadTemplate('search_result/item');
+      //this.preloadTemplate('search_result/item');
     },
 
     removeOld: function() {
@@ -110,6 +110,7 @@
       //peform sort
 
       this.collection.performSort(this.sort_column, this.sort_direction);
+      this.collection.removeOld(this.shown_threshold);
 
       //render
 
@@ -124,16 +125,16 @@
 
       var ids = [];
       _.each(this.collection.models, function(search_result) {
-        if (typeof(self.views[search_result.get('id')]) == 'undefined') {
+        if (typeof(self.views[search_result.mongoId()]) == 'undefined') {
           var view = new SearchResult.Views.Item({
             model: search_result,
           });
 
           self.$el.find('.items').append(view.render().el);
-          self.views[search_result.get('id')] = view;
+          self.views[search_result.mongoId()] = view;
         }
         else {
-          self.$el.find('.items').append(self.views[search_result.get('id')].el);
+          self.$el.find('.items').append(self.views[search_result.mongoId()].el);
         }
       });
 

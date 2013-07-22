@@ -9,5 +9,3 @@ file "config.py"
 file "generic.py"
 file "consensus.py"
 file "scraper.py"
-
-full_remote_build true
