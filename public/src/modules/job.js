@@ -175,12 +175,12 @@
                 data: data,
                 success: function(collection, response) {
 
-                  if (response != false) {
+                  if (response !== false) {
 
                     //add models to collection
 
                     self.search_results_view.collection.add(collection.models);
-                    
+
                     //assign some config values
 
                     self.search_results_view.loading = false;
