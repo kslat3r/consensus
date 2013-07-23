@@ -45,6 +45,14 @@
                 $limit = null;
             }
 
+            if (isset($request['from_id'])) {
+                $SearchResult = $this->_mapper->findById($request['from_id']);
+
+                if ($SearchResult instanceof Consensus_Model_SearchResult) {
+                    $data['source_date_created_timestamp'] = array('$gt'=>$SearchResult->source_date_created_timestamp);
+                }
+            }
+
             $SearchResults = $this->_mapper->find($data, $order_by, $direction, $limit);
 
             $classified_check = true;

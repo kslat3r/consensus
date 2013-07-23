@@ -31,7 +31,7 @@
         public function findById($id) {
             $out = $this->returnInstances($this->_mongo->find(array($this->_pk=>new MongoId($id))));
 
-            if (isset($out[0]) && $out[0] instanceof Consensus_Model_Job) {
+            if (isset($out[0]) && $out[0] instanceof Data_Model_Base) {
                 return $out[0];
             }
 

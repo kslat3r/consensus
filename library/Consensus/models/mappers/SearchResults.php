@@ -4,6 +4,5 @@
 
 		protected $_collection 	= 'search_results';
 		protected $_className	= 'Consensus_Model_SearchResult';
-		
 	}
 ?>

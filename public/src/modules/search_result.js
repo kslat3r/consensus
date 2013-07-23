@@ -26,8 +26,8 @@
     },
 
     removeOld: function(shown_threshold) {
-      if (this.length > shown_threshold) {
-        this.models = this.slice(0, shown_threshold - 1);
+      if (parseInt(this.length) > parseInt(shown_threshold)) {
+        this.models = this.slice(0, shown_threshold);
       }
     },
 
@@ -99,10 +99,11 @@
       //this.preloadTemplate('search_result/item');
     },
 
-    removeOld: function() {
-      this.collection.removeOld(this.shown_threshold);
-
-      //code needs to be added here to delete old views
+    removeOld: function(shown_threshold) {
+      if (parseInt(this.collection.models.length) > parseInt(shown_threshold)) {
+        this.collection.removeOld(shown_threshold);
+        this.views = this.views.splice(0, parseInt(shown_threshold));
+      }
     },
 
     render: function() {
@@ -112,7 +113,7 @@
       //peform sort
 
       this.collection.performSort(this.sort_column, this.sort_direction);
-      this.collection.removeOld(this.shown_threshold);
+      this.removeOld(this.shown_threshold);
 
       //render
 
