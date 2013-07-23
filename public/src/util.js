@@ -16,6 +16,8 @@ var Util = {
 			}
 
 			str += num;
+
+			return str;
 		}
 
 		return num;
