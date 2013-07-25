@@ -90,7 +90,7 @@
     sort_column: 'date',
     sort_direction: 'desc',
 
-    new_threshold: 50,
+    new_threshold: 10,
     old_threshold: 100,
 
     views: [],
