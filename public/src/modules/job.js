@@ -49,7 +49,9 @@
       'click input#search': 'search',
       'keypress input': 'searchOnEnter',
       'click ul.view_options li a': 'switchView',
-      'click li#to_top a': 'goToTop'
+      'click li#to_top a': 'goToTop',
+      'focus input#search': 'searchFocussed',
+      'blur input#search': 'searchBlurred'
     },
 
     //config
@@ -69,6 +71,7 @@
     timer: null,
     timerIncrement: 10,
     ajaxOccurring: false,
+    searchFocussed: false,
 
     //constructor
 
@@ -147,7 +150,7 @@
 
               //ajax current occurring?
 
-              if (self.ajaxOccurring == true) {
+              if (self.ajaxOccurring == true || self.searchFocussed == true) {
                 return;
               }
 
@@ -368,6 +371,14 @@
           self.error(error);
         }
       });
+    },
+
+    searchFocussed: function() {
+      this.searchFocussed = true;
+    },
+
+    searchBlurred: function() {
+      this.searchFocussed = false;
     },
 
     render: function() {

@@ -25,9 +25,9 @@
       return '/apiv1/searchresults';
     },
 
-    removeOld: function(shown_threshold) {
-      if (parseInt(this.length) > parseInt(shown_threshold)) {
-        return this.slice(shown_threshold * -1);
+    hideNew: function(new_threshold) {
+      if (parseInt(this.length) > parseInt(new_threshold)) {
+        return this.slice(new_threshold * -1);
       }
 
       return this.models;
@@ -90,7 +90,8 @@
     sort_column: 'date',
     sort_direction: 'desc',
 
-    shown_threshold: 50,
+    new_threshold: 50,
+    old_threshold: 100,
 
     views: [],
 
@@ -106,10 +107,10 @@
       this.render();
     },
 
-    removeOld: function(shown_threshold) {
-      if (parseInt(this.collection.models.length) > parseInt(shown_threshold)) {
-        var models = this.collection.removeOld(shown_threshold);
-        this.views = this.views.splice(0, parseInt(shown_threshold));
+    hideNew: function(new_threshold) {
+      if (parseInt(this.collection.models.length) > parseInt(new_threshold)) {
+        var models = this.collection.hideNew(new_threshold);
+        this.views = this.views.splice(0, parseInt(new_threshold));
       }
       else {
         var models = this.collection.models;
@@ -125,7 +126,7 @@
       //peform sort
 
       this.collection.performSort(this.sort_column, this.sort_direction);
-      var models_subset = this.removeOld(this.shown_threshold);
+      var models_subset = this.hideNew(this.new_threshold);
 
       //render
 
@@ -136,7 +137,7 @@
         loading_more: this.loading_more,
         
         show_load_more: (this.collection.length > models_subset.length ? true : false),
-        show_load_more_text: 'Load ' + (this.collection.length - models_subset.length) + ' more'
+        show_load_more_text: 'Load ' + (this.collection.length - models_subset.length > 100 ? '100+' : this.collection.length - models_subset.length) + ' more'
       }));
 
       //replace

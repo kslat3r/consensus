@@ -122,6 +122,7 @@ class String:
     value = ''
 
     def __init__(self, value):
+        self.value = value.lower()
         self.value = self._stripUrls(value)
         self.value = self._stripHashTags(value)
         self.value = self._stripAtTags(value)
