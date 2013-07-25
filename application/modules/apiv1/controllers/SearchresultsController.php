@@ -55,32 +55,15 @@
 
             $SearchResults = $this->_mapper->find($data, $order_by, $direction, $limit);
 
-            $classified_check = true;
-
+            $out = array();
             if (is_array($SearchResults)) {
                 foreach ($SearchResults as $SearchResult) {
-                    if ($SearchResult->classified == false) {
-                        $classified_check = false;
-                    }
+                    $out[] = $SearchResult->toArray();
                 }
             }
 
-            if ($classified_check == true) {
-                $out = array();
-
-                if (is_array($SearchResults)) {
-                    foreach ($SearchResults as $SearchResult) {
-                        $out[] = $SearchResult->toArray();
-                    }
-                }
-
-                $this->getResponse()->setHttpResponseCode(200);
-                $this->getResponse()->appendBody(json_encode($out));
-            }
-            else {
-                $this->getResponse()->setHttpResponseCode(200);
-                $this->getResponse()->appendBody(json_encode(false));
-            }
+            $this->getResponse()->setHttpResponseCode(200);
+            $this->getResponse()->appendBody(json_encode($out));
     	}
 
     	public function getAction() {

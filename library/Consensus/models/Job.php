@@ -14,7 +14,13 @@
     			'token' => $config->ironworker->token,
     			'project_id' => $config->ironworker->project_id
 			));
-			$Worker->postTask('classifier', array('job_id' => $this->id));
+
+			if (APPLICATION_ENV == 'production') {
+				$Worker->postTask('classifier', array('job_id' => $this->id));
+			}
+			elseif (APPLICATION_ENV == 'development') {
+				$Worker->postTask('classifier_dev', array('job_id' => $this->id));	
+			}
 		}
 	}
 ?>

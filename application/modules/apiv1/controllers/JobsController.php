@@ -28,13 +28,13 @@
             if (count($extra) == 2) {
                 $Job = $this->_mapper->findById($extra[0]);
 
-                if ($Job instanceof Consensus_Model_Job) {
+                if ($Job instanceof Consensus_Model_Job && $Job->executing == false) {
                     $Job->pushToWorker();
-
-                    $this->getResponse()->setHttpResponseCode(200);
-                    $this->getResponse()->appendBody(json_encode($Job->toArray()));
-                    return;
                 }
+                
+                $this->getResponse()->setHttpResponseCode(200);
+                $this->getResponse()->appendBody(json_encode($Job->toArray()));
+                return;
             }
 
             $this->getResponse()->setHttpResponseCode(404);
@@ -47,6 +47,7 @@
 
             $data['session_id']     = $this->_Session->id;
             $data['date_created']   = date('Y-m-d H:i:s');
+            $data['executing']      = false;
 
             //create
 

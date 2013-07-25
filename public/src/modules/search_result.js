@@ -27,8 +27,10 @@
 
     removeOld: function(shown_threshold) {
       if (parseInt(this.length) > parseInt(shown_threshold)) {
-        this.models = this.slice(0, shown_threshold);
+        return this.slice(shown_threshold * -1);
       }
+
+      return this.models;
     },
 
     performSort: function(sort_column, sort_direction) {
@@ -80,7 +82,7 @@
     },
 
     events: {
-
+      'click div.load_more': 'loadMore',
     },
 
     job: null,
@@ -99,11 +101,21 @@
       //this.preloadTemplate('search_result/item');
     },
 
+    loadMore: function() {
+      this.shown_threshold = this.collection.length;
+      this.render();
+    },
+
     removeOld: function(shown_threshold) {
       if (parseInt(this.collection.models.length) > parseInt(shown_threshold)) {
-        this.collection.removeOld(shown_threshold);
+        var models = this.collection.removeOld(shown_threshold);
         this.views = this.views.splice(0, parseInt(shown_threshold));
       }
+      else {
+        var models = this.collection.models;
+      }
+
+      return models;
     },
 
     render: function() {
@@ -113,7 +125,7 @@
       //peform sort
 
       this.collection.performSort(this.sort_column, this.sort_direction);
-      this.removeOld(this.shown_threshold);
+      var models_subset = this.removeOld(this.shown_threshold);
 
       //render
 
@@ -121,13 +133,16 @@
         search_results: this.collection,
 
         loading: this.loading,
-        loading_more: this.loading_more
+        loading_more: this.loading_more,
+        
+        show_load_more: (this.collection.length > models_subset.length ? true : false),
+        show_load_more_text: 'Load ' + (this.collection.length - models_subset.length) + ' more'
       }));
 
       //replace
 
       var ids = [];
-      _.each(this.collection.models, function(search_result) {
+      _.each(models_subset, function(search_result) {
         if (typeof(self.views[search_result.mongoId()]) == 'undefined') {
           var view = new SearchResult.Views.Item({
             model: search_result,

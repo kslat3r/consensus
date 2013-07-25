@@ -67,7 +67,7 @@
     //internal timer
 
     timer: null,
-    timerIncrement: 5,
+    timerIncrement: 10,
     ajaxOccurring: false,
 
     //constructor
@@ -167,47 +167,45 @@
                 direction: -1
               };
 
-              if ($('table tr.result').length > 0) {
-                data.from_id = $('table tr.result a.classification_detail').attr('id').replace('search_result_', '')
+              if (self.search_results_view.collection.length > 0) {
+                data.from_id = self.search_results_view.collection.at(0).mongoId()
               }
+
+              collection = null;
 
               searchResults.fetch({
                 data: data,
                 success: function(collection, response) {
 
-                  if (response !== false) {
+                  //add models to collection
 
-                    //add models to collection
+                  self.search_results_view.collection.add(collection.models);
 
-                    self.search_results_view.collection.add(collection.models);
+                  //assign some config values
 
-                    //assign some config values
+                  self.search_results_view.loading = false;
 
-                    self.search_results_view.loading = false;
+                  //render
 
-                    //render
+                  self.search_results_view.render();
 
-                    self.search_results_view.render();
+                  //add most recent search to chart
 
-                    //add most recent search to chart
+                  search = new Backbone.Model();
+                  search.set('search_results', collection);
+                  self.chart_view.collection.add(search);
 
-                    search = new Backbone.Model();
-                    search.set('search_results', collection);
-                    self.chart_view.collection.add(search);
+                  //render chart view
 
-                    //render chart view
+                  self.chart_view.render();
 
-                    self.chart_view.render();
+                  //render
 
-                    //render
+                  self.render();
 
-                    self.render();
+                  //push job to queue and toggle switch
 
-                    //push job to queue and toggle switch
-
-                    self.job.pushToWorker();                    
-                  }
-
+                  self.job.pushToWorker();
                   self.ajaxOccurring = false;
                 }
               });

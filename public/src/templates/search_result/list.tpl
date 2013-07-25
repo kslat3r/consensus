@@ -7,10 +7,18 @@
                     <th class="centre">Content</th>
                     <th class="centre">Date</th>
                     <th class="centre">User</th>
-                </tr>
+                </tr>                
             </thead>
         	<tbody class="items">
-
+                <% if (show_load_more == true) { %>
+                    <tr>
+                        <td colspan="4">
+                            <div class="button pale-yellow load_more">
+                                <%= show_load_more_text %>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
         	</tbody>
             <tfoot>
                 <tr id="loading_more"<%= loading_more == false ? ' style="display: none;"' : '' %>>
