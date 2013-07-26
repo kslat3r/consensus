@@ -28,7 +28,7 @@
             if (count($extra) == 2) {
                 $Job = $this->_mapper->findById($extra[0]);
 
-                if ($Job instanceof Consensus_Model_Job && $Job->executing == false) {
+                if ($Job instanceof Consensus_Model_Job && $Job->executing == false && $Job->started == true) {
                     $Job->pushToWorker();
                 }
                 
@@ -48,6 +48,7 @@
             $data['session_id']     = $this->_Session->id;
             $data['date_created']   = date('Y-m-d H:i:s');
             $data['executing']      = false;
+            $data['started']        = false;
 
             //create
 

@@ -6,6 +6,7 @@
 
 		protected $_collection	= 'jobs';
 		protected $_className	= 'Consensus_Model_Job';
+		private $_priority		= 0;
 
 		public function pushToWorker() {
 			$config = Zend_Registry::get('config');
@@ -16,10 +17,10 @@
 			));
 
 			if (APPLICATION_ENV == 'production') {
-				$Worker->postTask('classifier', array('job_id' => $this->id));
+				$Worker->postTask('classifier', array('job_id' => $this->id), array('priority'=>$this->_priority));
 			}
 			elseif (APPLICATION_ENV == 'development') {
-				$Worker->postTask('classifier_dev', array('job_id' => $this->id));	
+				$Worker->postTask('classifier_dev', array('job_id' => $this->id), array('priority'=>$this->_priority));	
 			}
 		}
 	}

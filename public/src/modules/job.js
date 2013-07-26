@@ -24,9 +24,9 @@
     },
 
     pushToWorker: function(callback) {
-      $.get('/apiv1/jobs/' + this.mongoId() + '&push=true', function() {
+      $.get('/apiv1/jobs/' + this.mongoId() + '&push=true', function(resp) {
         if (typeof(callback) == 'function') {
-          callback();
+          callback(resp);
         }
       });
     }
@@ -71,7 +71,12 @@
     timer: null,
     timerIncrement: 10,
     ajaxOccurring: false,
+    
+    //ui
+
     searchFocussed: false,
+    startedFalseCount: 0,
+    startedFalseCountThreshold: 3,
 
     //constructor
 
@@ -186,7 +191,9 @@
 
                   //assign some config values
 
-                  self.search_results_view.loading = false;
+                  if (self.search_results_view.collection.length > 0) {
+                    self.search_results_view.loading = false;
+                  }
 
                   //render
 
@@ -208,8 +215,18 @@
 
                   //push job to queue and toggle switch
 
-                  self.job.pushToWorker();
-                  self.ajaxOccurring = false;
+                  self.job.pushToWorker(function(resp) {
+                    if (resp.started == false) {
+                      self.startedFalseCount++;
+
+                      if (self.startedFalseCount > self.startedFalseCountThreshold) {
+                        self.error('Looks like searches aren\'t being processed at the moment. Please bear with us!');
+                        self.startedFalseCount = 0;
+                      }
+                    }
+
+                    self.ajaxOccurring = false;
+                  });                  
                 }
               });
             }, self.timerIncrement * 1000);

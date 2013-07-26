@@ -103,7 +103,7 @@
     },
 
     loadMore: function() {
-      this.shown_threshold = this.collection.length;
+      this.new_threshold = this.collection.length;
       this.render();
     },
 

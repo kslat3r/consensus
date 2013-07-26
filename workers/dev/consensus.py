@@ -20,6 +20,7 @@ class Job(generic.Base):
 
 	def execute(self):
 		self.set('executing', True)
+		self.set('started', True)
 		self.save()
 
 		#get last search result
