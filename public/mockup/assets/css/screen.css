@@ -232,12 +232,12 @@ div#content div#no_results {
 }
 
 div#content div#load_more {
-	background-color: #F6F6F6;
+	background-color: #eef;
 	cursor: pointer;
 	border-top: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
 	font-style: italic;
-	color: #aaa;
+	color: #999;
 	font-size: 90%;
 	padding-top: 10px;
 	padding-bottom: 10px;
