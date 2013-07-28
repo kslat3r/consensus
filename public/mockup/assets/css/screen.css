@@ -319,9 +319,11 @@ div#content div.result div.score {
 
 div#content div.result div.date {
 	position: absolute;
-	bottom: 11px;
+	bottom: 7px;
 	right: 1%;
 	width: auto;
+	color: #AAAAAA;
+    font-size: 80%;
 }
 
 div#content div#load_scroll {
