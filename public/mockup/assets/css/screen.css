@@ -261,7 +261,7 @@ div#content div.result {
 }
 
 div#content div.result.even {
-	background-color: #eef;
+	background-color: #eee;
 }
 
 div#content div.result div.pic {
@@ -275,7 +275,7 @@ div#content div.result div.pic img {
 }
 
 div#content div.result div.value {
-	width: 68%;
+	width: 85%;
 	margin-right: 2%;
 }
 
