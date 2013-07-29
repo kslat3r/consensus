@@ -380,7 +380,8 @@ div#content div#load_scroll {
 	}
 
 	div#toolbar ul li.search {
-		width: 97%;
+		width: 96%;
+		margin-left: 1%;
 	}
 
 	div#toolbar ul li.search form#search input.submit {
