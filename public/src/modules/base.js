@@ -16,7 +16,7 @@
 		},
 
 		throbberElem: function() {
-			return $('div#throbber');
+			return $('div#toolbar ul li.search form#search input.submit');
 		},
 
 		success: function(msg) {
@@ -96,17 +96,11 @@
 		},
 
 		showThrobber: function() {
-			this.throbberElem().animate({
-				bottom: '0',
-				duration: 700
-			});
+			this.throbberElem().addClass('throbber');
 		},
 
 		hideThrobber: function() {
-			this.throbberElem().animate({
-				bottom: '-51',
-				duration: 700
-			});
+			this.throbberElem().removeClass('throbber');
 		},
 
 		preloadTemplate: function(template) {
@@ -148,59 +142,49 @@
 		throbberShown: false,
 
 		appElem: function() {
-      return $('div#app');
-    },
+	      return $('div#app');
+	    },
 
-    throbberElem: function() {
-    	return $('div#throbber');
-    },
+	    throbberElem: function() {
+	    	return $('div#toolbar ul li.search form#search input.submit');
+	    },
 
-    showThrobber: function() {
-    	if (this.throbberShown == false) {
-				this.throbberElem().animate({
-					bottom: '0',
-					duration: 200
-				});
-
+	    showThrobber: function() {
+	    	if (this.throbberShown == false) {
+				this.throbberElem().addClass('throbber');
 				this.throbberShown = true;
 			}
 		},
 
 		hideThrobber: function() {
-			var self = this;
-
-			this.throbberElem().animate({
-				bottom: '-51',
-				duration: 100
-			}, function() {
-				self.throbberShown = false;
-			});
+			this.throbberElem().removeClass('throbber');		
+			this.throbberShown = false;
 		},
 
-    initialize: function() {
+	    initialize: function() {
 
-    	var self = this;
+	    	var self = this;
 
-    	$.ajaxSetup({
-        statusCode: {
-          403: function(resp) {
-              self.navigate('error/403', {trigger: true});
-          },
-          404: function(resp) {
-              self.navigate('error/404', {trigger: true});
-          },
-          500: function(resp) {
-              self.navigate('error/500', {trigger: true});
-          }
-        },
-        beforeSend: function() {
-      		self.showThrobber();
-				},
-				complete: function() {
-					self.hideThrobber();
-				}
-      });
-    }
+	    	$.ajaxSetup({
+	        statusCode: {
+	          403: function(resp) {
+	              self.navigate('error/403', {trigger: true});
+	          },
+	          404: function(resp) {
+	              self.navigate('error/404', {trigger: true});
+	          },
+	          500: function(resp) {
+	              self.navigate('error/500', {trigger: true});
+	          }
+	        },
+	        beforeSend: function() {
+	      		self.showThrobber();
+			},
+			complete: function() {
+				self.hideThrobber();
+			}
+	      });
+	    }
 	});
 
 })(Consensus.module("base"));

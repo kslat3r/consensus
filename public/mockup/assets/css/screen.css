@@ -155,7 +155,12 @@ div#toolbar ul li {
 	margin-right: 2%;
 	padding-right: 2%;
 	text-align: center;
-	border-right: 1px solid #ccc;
+	border-right: 1px solid #D6D8DB;
+}
+
+div#toolbar ul li:hover a img,
+div#toolbar ul li.selected a img {
+	opacity: 1;
 }
 
 div#toolbar ul li.logout {
@@ -163,6 +168,10 @@ div#toolbar ul li.logout {
 	padding-right: 0;
 	width: 10%;
 	border-right: none;
+}
+
+div#toolbar ul li.logout img {
+	opacity: 1;
 }
 
 div#toolbar ul li.search {
@@ -185,6 +194,7 @@ div#toolbar ul li.list {
 div#toolbar ul li img {
 	width: 24px;
 	height: 24px;
+	opacity: 0.5;
 }
 
 div#toolbar ul li.search form#search {
@@ -242,6 +252,10 @@ div#content div#load_more {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05) inset;
+}
+
+div#content div#load_more:hover {
+	box-shadow: none;
 }
 
 div#content div#no_results {
@@ -317,6 +331,10 @@ div#content div.result div.score {
 	right: 1%;
 }
 
+div#content div.result:hover div.score {
+	font-size: 120%;
+}
+
 div#content div.result div.date {
 	position: absolute;
 	bottom: 7px;
@@ -342,15 +360,31 @@ div#content div#load_scroll {
 		margin-top: 2px;
 	}
 
+	div#toolbar ul li.search {
+		width: 97%;
+	}
+
 	div#toolbar ul li.search form#search input.submit {
 		height: 16px;
 		width: 16px;
 		background-size: 16px 16px;
 		margin-top: 2px;
-		margin-left: 2%;
+		margin-left: 1%;
 	}
 
 	div#toolbar ul li.search {
 		margin-right: 2%;		
 	}	
+
+	div#toolbar ul li.list {
+		display: none;
+	}
+
+	div#toolbar ul li.graph {
+		display: none;
+	}
+
+	div#toolbar ul li.logout {
+		display: none;
+	}
 }

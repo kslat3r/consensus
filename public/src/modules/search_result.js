@@ -74,15 +74,10 @@
 
   SearchResult.Views.List = Base.Views.Base.extend({
 
-    tagName: 'div',
     template: 'search_result/list',
 
-    attributes: {
-      class: ''
-    },
-
     events: {
-      'click div.load_more': 'loadMore',
+      'click div#load_more': 'loadMore',
     },
 
     job: null,
@@ -131,13 +126,14 @@
       //render
 
       this.$el.html(SearchResult.Views.List.__super__.render(this.template, {
-        search_results: this.collection,
+        search_results: models_subset,
 
         loading: this.loading,
-        loading_more: this.loading_more,
         
         show_load_more: (this.collection.length > models_subset.length ? true : false),
-        show_load_more_text: 'Load ' + (this.collection.length - models_subset.length > 100 ? '100+' : this.collection.length - models_subset.length) + ' more'
+        show_load_more_text: 'Load ' + (this.collection.length - models_subset.length > 100 ? '100+' : this.collection.length - models_subset.length) + ' more',
+
+        show_load_scroll: false
       }));
 
       //replace
@@ -149,11 +145,11 @@
             model: search_result,
           });
 
-          self.$el.find('.items').append(view.render().el);
+          self.$el.find('#results').append(view.render().el);
           self.views[search_result.mongoId()] = view;
         }
         else {
-          self.$el.find('.items').append(self.views[search_result.mongoId()].el);
+          self.$el.find('#results').append(self.views[search_result.mongoId()].el);
         }
       });
 
@@ -165,109 +161,16 @@
 
   SearchResult.Views.Item = Base.Views.Base.extend({
 
-    tagName: 'tr',
     template: 'search_result/item',
-
-    attributes: {
-      class: 'result'
-    },
-
-    events: {
-      'click a.classification_detail': 'classificationDetail'
-    },
-
-    selected: 'item',
-    classification_detail_view: null,
-
-    classificationDetail: function(e) {
-      e.preventDefault();
-
-      if (this.selected == 'item') {
-        this.selected = 'classification_detail';
-      }
-      else {
-        this.selected = 'item';
-      }
-
-      this.classification_detail_view = new SearchResult.Views.ClassificationDetail({
-        model: this.model,
-        item: this
-      });
-
-      this.classification_detail_view.render();
-      this.render();
-    },
-
-    closeClassificationDetailView: function() {
-      if (this.selected == 'classification_detail') {
-        this.selected = 'item';
-        this.render();
-      }
-    },
 
     render: function() {
       this.$el.html(SearchResult.Views.Item.__super__.render(this.template, {
         search_result: this.model,
-        selected: this.selected,
-        scoring_band: JSON.parse(this.model.get('scoring_band'))
-      }));
-
-      //replace
-
-      if (this.classification_detail_view !== null) {
-        this.$el.find('.classification_detail_cont').replaceWith(this.classification_detail_view.el);
-      }
-
-      return this;
-    }
-  });
-
-  SearchResult.Views.ClassificationDetail = Base.Views.Base.extend({
-
-    tagName: 'td',
-    template: 'search_result/classification_detail',
-
-    events: {
-      'click .token': 'tokenDetails',
-    },
-
-    item: null,
-
-    initialize: function() {
-      this.item = this.options.item;
-    },
-
-    tokenDetails: function(e) {
-      var self = this;
-
-      var id = $(e.target).attr('id');
-
-      if ($(e.target).hasClass('selected')) {
-        this.$el.find('#' + id + '_desc').hide();
-        $(e.target).removeClass('selected');
-      }
-      else {
-        this.$el.find('.selected').removeClass('selected');
-        $(e.target).addClass('selected');
-
-        this.$el.find('.token_desc').hide();
-        this.$el.find('#' + id + '_desc').show();
-      }
-    },
-
-    closeTokenDetails: function() {
-      this.$el.find('.selected').removeClass('selected');
-      this.$el.find('.token_desc').hide();
-    },
-
-    render: function() {
-      this.$el.html(SearchResult.Views.ClassificationDetail.__super__.render(this.template, {
-        search_result: this.model,
+        scoring_band: JSON.parse(this.model.get('scoring_band')),
         tokens: JSON.parse(this.model.get('tokens'))
       }));
 
       return this;
     }
   });
-
 })(Consensus.module("search_result"));

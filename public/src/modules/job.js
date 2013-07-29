@@ -42,14 +42,12 @@
   });
 
   Job.Views.Index = Base.Views.Base.extend({
-    tagName: 'div',
     template: 'job/index',
 
     events: {
-      'click input#search': 'search',
-      'keypress input': 'searchOnEnter',
-      'click ul.view_options li a': 'switchView',
-      'click li#to_top a': 'goToTop',
+      'click input#submit': 'search',
+      'keypress input#term': 'searchOnEnter',
+      'click li.view': 'switchView',
       'focus input#search': 'searchFocussed',
       'blur input#search': 'searchBlurred'
     },
@@ -61,10 +59,8 @@
     //main objects
 
     job: null,
-
     search_results_view: null,
     chart_view: null,
-    detailed_view: null,
 
     //internal timer
 
@@ -92,17 +88,7 @@
 
       this.chart_view = new Job.Views.Chart({
         collection: new Backbone.Collection()
-      });
-
-      this.detailed_view = new SearchResult.Views.List({
-        collection: new SearchResult.Collection()
-      });
-
-      //scroll controls
-
-      $(window).bind('scroll.controls', function(e) {
-        self.scrollControls(e);
-      });
+      });      
     },
 
     searchOnEnter: function(e) {
@@ -243,8 +229,8 @@
 
       var self = this;
 
-      this.$el.find('ul.view_options li').removeClass('selected');
-      $(e.target).parents('li').addClass('selected');
+      this.$el.find('li.view').removeClass('selected');
+      $(e.target).addClass('selected');
 
       if ($(e.target).parents('li').attr('id') == 'results_view_sel') {
         if (this.$el.find('#chart_view').is(':visible')) {
@@ -316,19 +302,6 @@
       }
     },
 
-    scrollControls: function(e) {
-      this.$el.find('#controls').css('top', $(window).scrollTop() + 'px');
-      this.controls_scroll_top = $(window).scrollTop();
-    },
-
-    goToTop: function(e) {
-      e.preventDefault();
-
-      $(window).scrollTo(0, {
-        duration: 500
-      });
-    },
-
     _reset: function() {
 
       //reset timer
@@ -352,7 +325,6 @@
       this.chart_view.destroy();
       this.chart_view = null;
 
-      this.detailed_view = null;
 
       //set up views
 
@@ -362,10 +334,6 @@
 
       this.chart_view = new Job.Views.Chart({
         collection: new Backbone.Collection()
-      });
-
-      this.detailed_view = new SearchResult.Views.List({
-        collection: new SearchResult.Collection()
       });
     },
 
@@ -402,32 +370,17 @@
 
       this.$el.html(Job.Views.Index.__super__.render(this.template, {
         job: this.job,
-        selected: this.selected,
-        controls_scroll_top: this.controls_scroll_top
+        selected: this.selected
       }));
 
       //replace
 
-      this.$el.find('#search_results_cont').replaceWith(this.search_results_view.el);
-      this.$el.find('#chart_cont').replaceWith(this.chart_view.el);
-      this.$el.find('#detailed_cont').replaceWith(this.detailed_view.el);
+      this.$el.find('#results_view').html(this.search_results_view.el);
+      this.$el.find('#chart_view').html(this.chart_view.el);
 
       //redelegate
 
       this.search_results_view.delegateEvents();
-      this.detailed_view.delegateEvents();
-
-      /*for (var i in this.detailed_view.views) {
-        this.detailed_view.views[i].search_result_view.delegateEvents();
-      }*/
-
-      for (var i in this.search_results_view.views) {
-        this.search_results_view.views[i].delegateEvents();
-
-        if (this.search_results_view.views[i].classification_detail_view !== null) {
-          this.search_results_view.views[i].classification_detail_view.delegateEvents();
-        }
-      }
 
       //return
 
@@ -670,26 +623,6 @@
 
     setTitle: function(title) {
       this.chart.setTitle({text: title});
-    },
-
-    _createDetailedView: function(arr) {
-      var self = this;
-
-      var searches = new Search.Collection(arr);
-
-      this.live_feed.detailed_view.collection = searches;
-      this.live_feed.detailed_view.render();
-
-      this.live_feed.last_selected  = this.live_feed.selected;
-      this.live_feed.selected       = 'detailed';
-
-      if (this.live_feed.paused == false) {
-        this.info('Pausing live search');
-      }
-
-      this.live_feed.$el.find('#chart_view').fadeOut('fast', function() {
-        self.live_feed.pause();
-      });
     },
 
     redoPoints: function() {

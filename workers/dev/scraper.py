@@ -54,7 +54,8 @@ class Twitter(Scraper):
 			data['source_user_id']			= str(row['user']['id'])
 			data['source_user_image_url']	= str(row['user']['profile_image_url'])
 			data['source_user_username']	= str(row['user']['screen_name'])
-			data['value']					= row['text']
+			data['source_user_name']		= row['user']['name'].encode("utf-8")
+			data['value']					= row['text'].encode("utf-8")
 
 			data['source_date_created']				= datetime.strptime(row['created_at'], '%a %b %d %H:%M:%S +0000 %Y')
 			data['source_date_created_timestamp']	= time.mktime(datetime.strptime(row['created_at'], '%a %b %d %H:%M:%S +0000 %Y').timetuple())

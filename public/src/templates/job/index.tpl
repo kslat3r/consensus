@@ -1,47 +1,23 @@
-<div class="cont12">
-    <div class="grid12 alpha">
-        <form class="extra-compact">
-            <fieldset>
-                <div class="field">
-                    <input type="text" autocomplete="off" value="<%= job != null ? job.get('term') : '' %>" id="term" name="term" />
-                </div>
-                <div class="submit">
-                    <input type="submit" value="Search" name="submit" class="button blue-button" id="search" />
-                </div>
-            </fieldset>
-        </form>
-    </div>
+<div id="toolbar">
+    <ul>
+        <li class="search">
+            <form id="search">
+                <input type="text" placeholder="Enter your search term" class="value" value="<%= job != null ? job.get('term') : '' %>" id="term" />
+                <input type="submit" value="" class="submit" id="submit" />
+            </form>
+        </li>
+        <li class="list view<%= selected == 'results' ? ' selected' : '' %>"><a href="#"><img src="/assets/images/list.png" title="List view" /></a></li>
+        <li class="graph view<%= selected == 'chart' ? ' selected' : '' %>"><a href="#"><img src="/assets/images/chart.png" title="Chart view" /></a></li>
+        <li class="logout"><a href="/auth/logout"><img src="/assets/images/logout.png" title="Logout" /></a></li>
+    </ul>
+    <div class="clear">&nbsp;</div>
 </div>
-<% if (job != null) { %>
-    <div class="cont12">
-        <div class="cont10">
-            <div id="results_view" class="<%= selected == 'chart' || selected == 'detailed' ? 'hidden' : '' %>">
-                <div class="grid10 alpha">
-                    <div id="search_results_cont" />
-                </div>
-            </div>
-            <div id="chart_view" class="<%= selected == 'results' || selected == 'detailed' ? 'hidden' : '' %>">
-                <div class="grid10 alpha">
-                    <div id="chart_cont" />
-                </div>
-            </div>
-            <div id="detailed_view" class="<%= selected == 'results' || selected == 'chart' ? 'hidden' : '' %>">
-                <div id="detailed_cont" />
-            </div>
-        </div>
-        <div class="cont2">
-            <div class="grid2 omega panel yellow-grad" id="controls" style="top: <%= controls_scroll_top %>px;">
-                <div class="view whole">
-                    <ul class="controls floatright">
-                        <li id="to_top"><a href="#" title="Go to top"><img src="/assets/images/icons/light/appbar.arrow.up.png" alt="Go to top" title="Go to top" class="icon32 inline" /></a></li>
-                    </ul>
-                    <ul class="view_options floatleft unclasp-right">
-                        <li id="results_view_sel"<%= selected == 'results' ? ' class="selected"' : '' %>><a href="#"><img src="/assets/images/icons/light/appbar.column.one.png" alt="Results" title="Results" class="icon32" /></a></li>
-                        <li id="chart_view_sel"<%= selected == 'chart' ? ' class="selected"' : '' %>><a href="#"><img src="/assets/images/icons/light/appbar.graph.line.png" alt="Chart" title="Chart" class="icon32" /></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="clear">&nbsp;</div>
-    </div>
-<% } %>
+<div id="content">
+    <% if (job != null) { %>
+        <div id="results_view" class="<%= selected == 'chart' ? 'hidden' : '' %>"></div>
+        <div id="chart_view" class="<%= selected == 'results' ? 'hidden' : '' %>"></div>    
+    <% }
+    else { %>
+        <!-- Some instructions are needed here -->
+    <% } %>
+</div>
