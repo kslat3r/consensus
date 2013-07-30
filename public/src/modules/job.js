@@ -29,6 +29,14 @@
           callback(resp);
         }
       });
+    },
+
+    delete: function(async) {
+      $.ajax({
+        url: '/apiv1/jobs/' + this.mongoId(),
+        type: 'DELETE',
+        async: async
+      });
     }
   });
 
@@ -88,7 +96,16 @@
 
       this.chart_view = new Job.Views.Chart({
         collection: new Backbone.Collection()
-      });      
+      });
+
+      //set up window leave event
+
+      var self = this;
+      window.onbeforeunload = function() {
+        if (self.job != null) {
+          self.job.delete(false);
+        }
+      };
     },
 
     searchOnEnter: function(e) {
@@ -310,8 +327,8 @@
 
       //delete old job
 
-      if (this.job !== null) {
-        this.job = null;
+      if (this.job != null) {
+        this.job.delete(true);        
       }
 
       //reset collection
@@ -321,10 +338,8 @@
       //destroy old views
 
       this.search_results_view = null;
-
       this.chart_view.destroy();
       this.chart_view = null;
-
 
       //set up views
 

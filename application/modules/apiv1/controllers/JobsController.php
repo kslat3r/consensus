@@ -66,7 +66,19 @@
     	}
 
     	public function deleteAction() {
-            $this->getResponse()->setHttpResponseCode(404);
+            $params = $this->getRequest()->getParams();
+
+            if (isset($params['id'])) {
+                $Job = $this->_mapper->findById($params['id']);
+
+                if ($Job instanceof Consensus_Model_Job) {
+                    $Job->delete();
+                    $this->getResponse()->setHttpResponseCode(200);
+                    return;
+                }                
+            }
+            
+            $this->getResponse()->setHttpResponseCode(204);
             return;
     	}
     }

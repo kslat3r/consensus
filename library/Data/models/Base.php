@@ -51,7 +51,7 @@
         }
 
         public function delete() {
-            $this->_mongo->remove(array($this->_pk=>$this->_details[$this->_pk]));
+            $this->_mongo->remove(array($this->_pk=>new MongoId($this->_details[$this->_pk])));
         }
 
         public function toArray() {

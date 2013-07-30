@@ -8,6 +8,22 @@
 		protected $_className	= 'Consensus_Model_Job';
 		private $_priority		= 0;
 
+		public function delete() {
+
+			//find all search results
+
+			$SearchResults = new Consensus_Model_Mapper_SearchResults();
+			$SearchResults = $SearchResults->find(array('job_id'=>new MongoId($this->id)));
+
+			if (is_array($SearchResults)) {
+				foreach ($SearchResults as $SearchResult) {
+					$SearchResult->delete();
+				}
+			}
+
+			parent::delete();
+		}
+
 		public function pushToWorker() {
 			$config = Zend_Registry::get('config');
 

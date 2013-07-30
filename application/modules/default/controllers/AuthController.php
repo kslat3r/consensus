@@ -17,7 +17,7 @@
             $this->_helper->redirector('login', 'auth');
         }
 
-        public function loginAction() {
+        public function loginAction() {            
             $this->_checkLoggedIn();
         }
 
