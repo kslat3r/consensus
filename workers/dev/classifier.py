@@ -21,7 +21,7 @@ if payload == None:
 jobs = consensus.Jobs()
 job = jobs.find_by_id(payload['job_id'])
 
-if (isinstance(job, consensus.Job)):
+if (isinstance(job, consensus.Job) and job.get('executing') == False):
 	job.execute()
 elif (job.get('executing') == True):
 	print 'Job is already executing'
