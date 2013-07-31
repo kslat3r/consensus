@@ -28,13 +28,15 @@
             if (count($extra) == 2) {
                 $Job = $this->_mapper->findById($extra[0]);
 
-                if ($Job instanceof Consensus_Model_Job && $Job->executing == false && $Job->started == true) {
-                    $Job->pushToWorker();
+                if ($Job instanceof Consensus_Model_Job) {
+                    if ($Job->executing == false && $Job->started == true) {
+                        $Job->pushToWorker();                    
+                    }
 
                     $this->getResponse()->setHttpResponseCode(200);
                     $this->getResponse()->appendBody(json_encode($Job->toArray()));
                     return;
-                }
+                }                
             }
 
             $this->getResponse()->setHttpResponseCode(404);
