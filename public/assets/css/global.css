@@ -375,6 +375,43 @@ div#content div#load_scroll {
 	margin-top: 10px;
 }
 
+div#alert {
+	position: fixed;
+	top: 35%;
+	background-color: #F6F6F6;
+	border: 1px solid #D6D8DB;
+	border-radius: 5px;
+	padding: 1% 2% 1% 2%;
+	width: 30%;
+	left: 50%;
+	margin-left: -17%;
+	box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+	display: none;
+	z-index: 2;
+}
+
+div#alert.error {
+	background-color: #FFDED8;
+	border-color: #ffaa99;
+	color: #bb0000;
+}
+
+div#alert.error span.close {
+	width: 16px;
+	height: 16px;
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background: url('/assets/images/close-error.png') no-repeat;
+	cursor: pointer;
+}
+
+div#alert div.content {
+	width: 100%;
+	text-align: center;
+}
+
 @media only screen and (max-width : 640px) {
 	div#wrapper {
 		width: 94%;
@@ -437,5 +474,22 @@ div#content div#load_scroll {
 	div#content div.result div.pic img {
 		height: auto;
 		background: none;
+	}
+
+	div#alert {
+		width: 84%;
+		left: 6%;
+		margin-left: 0;
+		padding-top: 5%;
+		padding-bottom: 5%;
+	}
+}
+
+@media only screen and (max-width : 1024px) and (min-width : 640px) {
+	div#alert {
+		width: 50%;
+		margin-left: -28%;
+		padding-top: 3%;
+		padding-bottom: 3%;
 	}
 }

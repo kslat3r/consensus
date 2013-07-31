@@ -235,9 +235,12 @@
             }, self.timerIncrement * 1000);
           },
           error: function(model, response) {
-            self.error('Live feed search could not be created');
+            self.error('An error has occurred when creating your search! Please try again.');
           }
         });
+      }
+      else {
+        self.error(valid);
       }
     },
 
@@ -368,7 +371,7 @@
 
       return this.job.set(obj, {
         error: function(model, error) {
-          self.error(error);
+          self.error('An error has occurred when creating your search! Please try again.');
         }
       });
     },

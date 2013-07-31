@@ -9,92 +9,36 @@
 		templateSuffix: '.tpl',
 		cachedTemplates: {},
 
+		messageEventAdded: false,
+
 		dp: 5,
 
 		messageElem: function() {
-			return $('div#message');
+			return $('div#alert');
 		},
 
 		throbberElem: function() {
 			return $('div#toolbar ul li.search form#search input.submit');
 		},
 
-		success: function(msg) {
-			this.messageElem().removeClass();
-			this.messageElem().addClass('success');
-			this.messageElem().text(msg);
-			this.messageElem().animate({
-    			bottom: '0',
-    			duration: 700
-    		});
-
-			var self = this;
-
-			setTimeout(function() {
-				self.messageElem().animate({
-	    			bottom: '-37',
-	    			duration: 700
-	    		});
-			}, this.messageTimeout);
-		},
-
 		error: function(msg) {
+			if (this.messageEventAdded == false) {
+				var self = this;
+
+				this.messageElem().find('span.close').live('click', function() {
+					self.messageElem().removeClass();
+					self.messageElem().hide();
+				});
+
+				self.messageEventAdded = true;
+			}
+
 			this.messageElem().removeClass();
 			this.messageElem().addClass('error');
-			this.messageElem().text(msg);
-			this.messageElem().animate({
-    			bottom: '0',
-    			duration: 700
-    		});
-
-			var self = this;
-
-			setTimeout(function() {
-				self.messageElem().animate({
-	    			bottom: '-37',
-	    			duration: 700
-	    		});
-			}, this.messageTimeout);
+			this.messageElem().find('div.content').text(msg);
+			this.messageElem().show();			
 		},
-
-		warning: function(msg) {
-			this.messageElem().removeClass();
-			this.messageElem().addClass('warning');
-			this.messageElem().text(msg);
-			this.messageElem().animate({
-    			bottom: '0',
-    			duration: 700
-    		});
-
-			var self = this;
-
-			setTimeout(function() {
-				self.messageElem().animate({
-	    			bottom: '-37',
-	    			duration: 700
-	    		});
-			}, this.messageTimeout);
-		},
-
-		info: function(msg) {
-			this.messageElem().removeClass();
-			this.messageElem().addClass('info');
-			this.messageElem().text(msg);
-			this.messageElem().animate({
-    			bottom: '0',
-    			duration: 700
-    		});
-
-			var self = this;
-
-			setTimeout(function() {
-				self.messageElem().animate({
-	    			bottom: '-37',
-	    			duration: 700
-	    		});
-			}, this.infoMessageTimeout);
-		},
-
+		
 		showThrobber: function() {
 			this.throbberElem().addClass('throbber');
 		},
