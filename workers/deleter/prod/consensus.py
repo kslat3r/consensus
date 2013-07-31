@@ -1,4 +1,6 @@
 import generic
+import sys
+from bson.objectid import ObjectId
 
 class Jobs(generic.Factory):
 	_pk = '_id'
@@ -17,7 +19,7 @@ class Job(generic.Base):
 		#get all search results
 
 		search_results = SearchResults()
-		search_results = search_results.find({'job_id': self.get('_id')})
+		search_results = search_results.find({'job_id': ObjectId(self.get('_id'))})
 
 		if search_results != None:
 			for search_result in search_results:
@@ -65,9 +67,7 @@ class SearchResult(generic.Base):
 	_collection = 'search_results'
 	_className = 'SearchResult'
 
-	def delete(self):
-		pass
-
+	pass
 
 class Sessions(generic.Factory):
 	_pk = '_id'
