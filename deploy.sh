@@ -1,9 +1,12 @@
 #!/bin/bash
 
-cd /vagrant/workers/prod/
+cd /vagrant/workers/classifier/prod/
 iron_worker upload classifier
 
-cd ../..
+cd ../../deleter/prod
+iron_worker upload deleter
+
+cd ../../..
 git add .
 git commit -m "Deploy"
 git push prod master

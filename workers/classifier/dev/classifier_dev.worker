@@ -1,0 +1,11 @@
+runtime "python"
+
+exec "classifier.py"
+
+pip "pymongo"
+pip "python-twitter"
+
+file "config.py"
+file "generic.py"
+file "consensus.py"
+file "scraper.py"

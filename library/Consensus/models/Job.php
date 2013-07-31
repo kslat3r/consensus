@@ -12,7 +12,7 @@
 
 			//find all search results
 
-			$SearchResults = new Consensus_Model_Mapper_SearchResults();
+			/*$SearchResults = new Consensus_Model_Mapper_SearchResults();
 			$SearchResults = $SearchResults->find(array('job_id'=>new MongoId($this->id)));
 
 			if (is_array($SearchResults)) {
@@ -21,7 +21,16 @@
 				}
 			}
 
-			parent::delete();
+			parent::delete();*/
+
+			$config = Zend_Registry::get('config');
+
+			$Worker = new IronWorker(array(
+    			'token' => $config->ironworker->token,
+    			'project_id' => $config->ironworker->project_id
+			));
+
+			$Worker->postTask('deleter', array('job_id' => $this->id), array('priority'=>$this->_priority));			
 		}
 
 		public function pushToWorker() {

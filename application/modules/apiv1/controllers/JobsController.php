@@ -30,11 +30,11 @@
 
                 if ($Job instanceof Consensus_Model_Job && $Job->executing == false && $Job->started == true) {
                     $Job->pushToWorker();
+
+                    $this->getResponse()->setHttpResponseCode(200);
+                    $this->getResponse()->appendBody(json_encode($Job->toArray()));
+                    return;
                 }
-                
-                $this->getResponse()->setHttpResponseCode(200);
-                $this->getResponse()->appendBody(json_encode($Job->toArray()));
-                return;
             }
 
             $this->getResponse()->setHttpResponseCode(404);

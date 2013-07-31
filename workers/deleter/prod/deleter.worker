@@ -1,0 +1,7 @@
+runtime "python"
+
+exec "deleter.py"
+
+file "config.py"
+file "generic.py"
+file "consensus.py"
