@@ -30,7 +30,7 @@
     			'project_id' => $config->ironworker->project_id
 			));
 
-			$Worker->postTask('deleter', array('job_id' => $this->id), array('priority'=>$this->_priority));			
+			$Worker->postTask('deleter', array('job_id' => $this->id), array('priority'=>$this->_priority, 'delay'=>60));			
 		}
 
 		public function pushToWorker() {

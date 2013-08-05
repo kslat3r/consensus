@@ -16,7 +16,7 @@
 		<%= search_result.get('score') > 0 ? '+' + search_result.get('score') : search_result.get('score') %>
 	</div>	    					
 	<div class="date floatright">
-		<% Util.parseDate(search_result.get('source_date_created').sec) %>
+		<%= Util.parseDate(search_result.get('source_date_created').sec) %>
 	</div>
 	<div class="clear">&nbsp;</div>
 </div>

@@ -33,6 +33,13 @@
       return this.models;
     },
 
+    removeOld: function(old_threshold) {
+      if (parseInt(this.length) > parseInt(old_threshold)) {
+        this.models  = this.slice(0, old_threshold);
+        this.length  = old_threshold;
+      }
+    },
+
     performSort: function(sort_column, sort_direction) {
       switch (sort_column) {
         case 'score':
@@ -85,8 +92,13 @@
     sort_column: 'date',
     sort_direction: 'desc',
 
-    new_threshold: 10,
-    old_threshold: 100,
+    //new_threshold: 10,
+
+    old_threshold: 20,
+    window_threshold: 95,
+    loading_old: false,
+    load_old_scroll: false,
+    old_scroll_top: 0,
 
     views: [],
 
@@ -95,14 +107,28 @@
 
     initialize: function() {
       //this.preloadTemplate('search_result/item');
+
+      var self = this;
+      $(window).scroll(function(e) {
+        var window_height = $(window).height();
+        var scroll_top    = $(window).scrollTop();
+
+        if (scroll_top > self.old_scroll_top) {
+          if (((scroll_top / window_height) * 100) > self.window_threshold) {
+            self.loadOld();
+          }
+        }
+        
+        self.old_scroll_top = scroll_top;
+      });
     },
 
-    loadMore: function() {
+    /*loadMore: function() {
       this.new_threshold = this.collection.length;
       this.render();
-    },
+    },*/
 
-    hideNew: function(new_threshold) {
+    /*hideNew: function(new_threshold) {
       if (parseInt(this.collection.models.length) > parseInt(new_threshold)) {
         var models = this.collection.hideNew(new_threshold);
         this.views = this.views.splice(0, parseInt(new_threshold));
@@ -112,6 +138,63 @@
       }
 
       return models;
+    },*/
+
+    loadOld: function() {
+      if (this.loading_old == true) {
+        return;
+      }
+
+      if (this.collection.where({'num': 1}).length > 0) {
+        return;
+      }
+
+      this.loading_old = true;
+
+      //render
+
+      this.load_old_scroll = true;
+      this.render();
+
+      var searchResults = new SearchResult.Collection();
+
+      //do params
+
+      var data = {
+        job_id: this.collection.at(this.collection.length - 1).get('job_id').$id,
+        to_id: this.collection.at(this.collection.length - 1).mongoId(),
+        order_by: 'source_date_created_timestamp',
+        direction: -1,
+        limit: 10
+      };
+
+      //make request
+
+      var self    = this;
+      collection  = null;
+
+      searchResults.fetch({
+        data: data,
+        success: function(collection, response) {
+          self.collection.add(collection.models);
+          self.old_threshold += collection.length;            
+          
+          self.load_old_scroll  = false;
+          self.loading_old      = false;
+          
+          self.render();          
+        }        
+      });      
+    },
+
+    removeOld: function(old_threshold) {
+      if (parseInt(this.collection.models.length) > parseInt(old_threshold)) {
+        this.collection.removeOld(old_threshold);
+
+        if (this.views.length > this.old_threshold) {
+          this.views = this.views.splice(0, this.views.length - old_threshold);
+        }
+      }
     },
 
     render: function() {
@@ -121,25 +204,27 @@
       //peform sort
 
       this.collection.performSort(this.sort_column, this.sort_direction);
-      var models_subset = this.hideNew(this.new_threshold);
-
+      this.removeOld(this.old_threshold);
+      
       //render
 
       this.$el.html(SearchResult.Views.List.__super__.render(this.template, {
-        search_results: models_subset,
+        search_results: this.collection.models,
 
         loading: this.loading,
         
-        show_load_more: (this.collection.length > models_subset.length ? true : false),
-        show_load_more_text: 'Load ' + (this.collection.length - models_subset.length > 100 ? '100+' : this.collection.length - models_subset.length) + ' more',
+        //show_load_more: (this.collection.length > models_subset.length ? true : false),
+        //show_load_more_text: 'Load ' + (this.collection.length - models_subset.length > 100 ? '100+' : this.collection.length - models_subset.length) + ' more',
+        show_load_more: false,
+        show_load_more_text: '',
 
-        show_load_scroll: false
+        show_load_scroll: self.load_old_scroll
       }));
 
       //replace
 
       var ids = [];
-      _.each(models_subset, function(search_result) {
+      _.each(this.collection.models, function(search_result) {
         if (typeof(self.views[search_result.mongoId()]) == 'undefined') {
           var view = new SearchResult.Views.Item({
             model: search_result,

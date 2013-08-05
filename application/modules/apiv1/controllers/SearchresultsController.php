@@ -53,6 +53,14 @@
                 }
             }
 
+            if (isset($request['to_id'])) {
+                $SearchResult = $this->_mapper->findById($request['to_id']);
+
+                if ($SearchResult instanceof Consensus_Model_SearchResult) {
+                    $data['source_date_created_timestamp'] = array('$lt'=>$SearchResult->source_date_created_timestamp);
+                }
+            }
+
             $SearchResults = $this->_mapper->find($data, $order_by, $direction, $limit);
 
             $out = array();

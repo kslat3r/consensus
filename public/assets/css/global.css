@@ -250,11 +250,13 @@ div#content {
 
 div#content div#load_more,
 div#content div#loading,
-div#content div#no_results {
+div#content div#no_results,
+div#content div#load_scroll {
 	width: 98%;
 	margin-bottom: 10px;
 	padding: 1%;
 	position: relative;
+	text-align: center;
 }
 
 div#loading {
@@ -371,7 +373,6 @@ div#content div.result div.date {
 }
 
 div#content div#load_scroll {
-	width: 100%;
 	margin-top: 10px;
 }
 

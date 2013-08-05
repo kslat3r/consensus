@@ -128,9 +128,9 @@ class String:
 
     def __init__(self, value):
         self.value = value.lower()
-        self.value = self._stripUrls(value)
-        self.value = self._stripHashTags(value)
-        self.value = self._stripAtTags(value)
+        #self.value = self._stripUrls(value)
+        #self.value = self._stripHashTags(value)
+        #self.value = self._stripAtTags(value)
 
     def _stripUrls(self, value):
         return re.sub(r'/\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/i', '', value)

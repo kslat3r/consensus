@@ -23,6 +23,8 @@ class Job(generic.Base):
 		self.set('started', True)
 		self.save()
 
+		i = 0
+
 		#get last search result
 
 		searchResults 		= SearchResults()
@@ -32,6 +34,7 @@ class Job(generic.Base):
 
 		if (len(lastSearchResults) == 1 and isinstance(lastSearchResults[0], SearchResult)):
 			params['since_id'] = lastSearchResults[0].get('source_id')
+			i = lastSearchResults[0].get('num')
 
 		sessions = Sessions()
 		session = sessions.find_by_id(self.get('session_id'))
@@ -46,8 +49,10 @@ class Job(generic.Base):
 		negate_tokens = negate_tokens.find()
 
 		if (searchResults != None):
+			i = i + 1
 			for searchResult in searchResults:
-				searchResult.classify(negate_tokens, scoring_bands)
+				searchResult.classify(negate_tokens, scoring_bands, i)
+				i = i + 1
 
 		self.set('executing', False)
 		self.save()
@@ -96,7 +101,7 @@ class SearchResult(generic.Base):
 
 	tokens = []
 
-	def classify(self, negateTokens, scoringBands):
+	def classify(self, negateTokens, scoringBands, num):
 
 		#get string and tokens
 
@@ -151,6 +156,7 @@ class SearchResult(generic.Base):
 
 		#save
 
+		self.set('num', num)
 		self.set('classified', 1)
 		self.save()
 
