@@ -173,11 +173,16 @@
               var data = {
                 job_id: self.job.mongoId(),
                 order_by: 'source_date_created_timestamp',
-                direction: -1
+                direction: 1
               };
 
               if (self.search_results_view.shown.length > 0) {
-                data.from_id = self.search_results_view.shown.at(0).mongoId()
+                if (self.search_results_view.hidden.length > 0) {
+                  data.from_id = self.search_results_view.hidden.at(self.search_results_view.hidden.length - 1).mongoId()
+                }
+                else {
+                  data.from_id = self.search_results_view.shown.at(0).mongoId() 
+                }
               }
 
               collection = null;

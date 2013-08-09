@@ -95,8 +95,9 @@
     shown: null,
     hidden: null,
     shown_threshold: 20,
+    max_shown_threshold: 100,
 
-    window_threshold: 95,
+    window_threshold: 80,
     loading_old: false,
     load_old_scroll: false,
     old_scroll_top: 0,
@@ -147,6 +148,10 @@
       this.shown.add(this.hidden.models);
       this.hidden = new SearchResult.Collection();
       
+      if (this.shown.length > this.max_shown_threshold) {
+        this.shown_threshold = this.max_shown_threshold;
+      }
+
       this.render();
     },
 
@@ -187,7 +192,7 @@
         to_id: this.shown.at(this.shown.length - 1).mongoId(),
         order_by: 'source_date_created_timestamp',
         direction: -1,
-        limit: 10
+        limit: 25
       };
 
       //make request
