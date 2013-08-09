@@ -113,8 +113,11 @@
 
       var self = this;
       $(window).scroll(function(e) {
-        var window_height = $(window).height();
+        var window_height = $(document).height()/ 2;
         var scroll_top    = $(window).scrollTop();
+
+        console.log(scroll_top);
+        console.log(window_height);
 
         if (scroll_top > self.old_scroll_top) {
           if (((scroll_top / window_height) * 100) > self.window_threshold) {
