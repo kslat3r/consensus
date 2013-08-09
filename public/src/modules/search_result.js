@@ -33,10 +33,10 @@
       return this.models;
     },
 
-    removeOld: function(old_threshold) {
-      if (parseInt(this.length) > parseInt(old_threshold)) {
-        this.models  = this.slice(0, old_threshold);
-        this.length  = old_threshold;
+    removeOld: function(threshold) {
+      if (parseInt(this.length) > parseInt(threshold)) {
+        this.models  = this.slice(0, threshold);
+        this.length  = threshold;
       }
     },
 
@@ -92,21 +92,23 @@
     sort_column: 'date',
     sort_direction: 'desc',
 
-    //new_threshold: 10,
+    shown: null,
+    hidden: null,
+    shown_threshold: 20,
 
-    old_threshold: 20,
     window_threshold: 95,
     loading_old: false,
     load_old_scroll: false,
     old_scroll_top: 0,
 
-    views: [],
-
     loading: true,
     loading_more: false,
 
     initialize: function() {
-      //this.preloadTemplate('search_result/item');
+      this.preloadTemplate('search_result/item');
+
+      this.shown  = new SearchResult.Collection();
+      this.hidden = new SearchResult.Collection();
 
       var self = this;
       $(window).scroll(function(e) {
@@ -123,10 +125,30 @@
       });
     },
 
-    /*loadMore: function() {
-      this.new_threshold = this.collection.length;
+    add: function(models) {
+      if (this.shown.length < this.shown_threshold) {
+        var self = this;
+
+        _.each(models, function(model) {
+          if (self.shown.length < self.shown_threshold) {
+            self.shown.add(model);
+          }
+          else {
+            self.hidden.add(model);
+          }
+        });
+      }
+      else {
+        this.hidden.add(models);
+      }
+    },
+
+    loadMore: function() {
+      this.shown.add(this.hidden.models);
+      this.hidden = new SearchResult.Collection();
+      
       this.render();
-    },*/
+    },
 
     /*hideNew: function(new_threshold) {
       if (parseInt(this.collection.models.length) > parseInt(new_threshold)) {
@@ -145,7 +167,7 @@
         return;
       }
 
-      if (this.collection.where({'num': 1}).length > 0) {
+      if (this.shown.where({'num': 1}).length > 0) {
         return;
       }
 
@@ -161,8 +183,8 @@
       //do params
 
       var data = {
-        job_id: this.collection.at(this.collection.length - 1).get('job_id').$id,
-        to_id: this.collection.at(this.collection.length - 1).mongoId(),
+        job_id: this.shown.at(this.shown.length - 1).get('job_id').$id,
+        to_id: this.shown.at(this.shown.length - 1).mongoId(),
         order_by: 'source_date_created_timestamp',
         direction: -1,
         limit: 10
@@ -176,8 +198,8 @@
       searchResults.fetch({
         data: data,
         success: function(collection, response) {
-          self.collection.add(collection.models);
-          self.old_threshold += collection.length;            
+          self.shown.add(collection.models);
+          self.shown_threshold += collection.length;
           
           self.load_old_scroll  = false;
           self.loading_old      = false;
@@ -187,36 +209,24 @@
       });      
     },
 
-    removeOld: function(old_threshold) {
-      if (parseInt(this.collection.models.length) > parseInt(old_threshold)) {
-        this.collection.removeOld(old_threshold);
-
-        if (this.views.length > this.old_threshold) {
-          this.views = this.views.splice(0, this.views.length - old_threshold);
-        }
-      }
-    },
-
     render: function() {
 
       var self = this;
 
       //peform sort
 
-      this.collection.performSort(this.sort_column, this.sort_direction);
-      this.removeOld(this.old_threshold);
+      this.shown.performSort(this.sort_column, this.sort_direction);
+      this.shown.removeOld(this.shown_threshold);
       
       //render
 
       this.$el.html(SearchResult.Views.List.__super__.render(this.template, {
-        search_results: this.collection.models,
+        search_results: this.shown.models,
 
         loading: this.loading,
         
-        //show_load_more: (this.collection.length > models_subset.length ? true : false),
-        //show_load_more_text: 'Load ' + (this.collection.length - models_subset.length > 100 ? '100+' : this.collection.length - models_subset.length) + ' more',
-        show_load_more: false,
-        show_load_more_text: '',
+        show_load_more: (this.hidden.length > 0 ? true : false),
+        show_load_more_text: 'Load ' + (this.hidden.length > 100 ? '100+' : this.hidden.length) + ' more',        
 
         show_load_scroll: self.load_old_scroll
       }));
@@ -224,18 +234,12 @@
       //replace
 
       var ids = [];
-      _.each(this.collection.models, function(search_result) {
-        if (typeof(self.views[search_result.mongoId()]) == 'undefined') {
-          var view = new SearchResult.Views.Item({
-            model: search_result,
-          });
+      _.each(this.shown.models, function(search_result) {
+        var view = new SearchResult.Views.Item({
+          model: search_result,
+        });
 
-          self.$el.find('#results').append(view.render().el);
-          self.views[search_result.mongoId()] = view;
-        }
-        else {
-          self.$el.find('#results').append(self.views[search_result.mongoId()].el);
-        }
+        self.$el.find('#results').append(view.render().el);
       });
 
       //return

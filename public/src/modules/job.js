@@ -90,9 +90,7 @@
 
       //set up views
 
-      this.search_results_view = new SearchResult.Views.List({
-        collection: new SearchResult.Collection()
-      });
+      this.search_results_view = new SearchResult.Views.List();
 
       this.chart_view = new Job.Views.Chart({
         collection: new Backbone.Collection()
@@ -178,8 +176,8 @@
                 direction: -1
               };
 
-              if (self.search_results_view.collection.length > 0) {
-                data.from_id = self.search_results_view.collection.at(0).mongoId()
+              if (self.search_results_view.shown.length > 0) {
+                data.from_id = self.search_results_view.shown.at(0).mongoId()
               }
 
               collection = null;
@@ -188,13 +186,13 @@
                 data: data,
                 success: function(collection, response) {
 
-                  //add models to collection
+                  //add model to collection
 
-                  self.search_results_view.collection.add(collection.models);
+                  self.search_results_view.add(collection.models);
 
                   //assign some config values
 
-                  if (self.search_results_view.collection.length > 0) {
+                  if (self.search_results_view.shown.length > 0) {
                     self.search_results_view.loading = false;
                   }
 
@@ -245,81 +243,7 @@
     },
 
     switchView: function(e) {
-      e.preventDefault();
-
-      var self = this;
-
-      this.$el.find('li.view').removeClass('selected');
-      $(e.target).addClass('selected');
-
-      if ($(e.target).parents('li').attr('id') == 'results_view_sel') {
-        if (this.$el.find('#chart_view').is(':visible')) {
-          this.$el.find('#chart_view, #stats').fadeOut('fast', function() {
-
-            //close classification screens
-
-            for (var i in self.search_results_view.views) {
-              self.search_results_view.views[i].closeClassificationDetailView();
-            }
-
-            //rerender
-
-            self.search_results_view.render();
-
-            //show div
-
-            self.$el.find('#results_view').show();
-          })
-        }
-        else if (this.$el.find('#detailed_view').is(':visible')) {
-          this.$el.find('#detailed_view').fadeOut('fast', function() {
-
-            //close classification screens
-
-            for (var i in self.search_results_view.views) {
-              self.search_results_view.views[i].closeClassificationDetailView();
-            }
-
-            //rerender
-
-            self.search_results_view.render();
-
-            //show div
-
-            self.$el.find('#results_view').show();
-          })
-        }
-
-        this.selected = 'results'
-      }
-      else if ($(e.target).parents('li').attr('id') == 'chart_view_sel') {
-        if (this.$el.find('#results_view').is(':visible')) {
-          this.$el.find('#results_view').fadeOut('fast', function() {
-            self.$el.find('#chart_view').show();
-            self.$el.find('#stats').show();
-
-            //close classification screens
-
-            for (var i in self.search_results_view.views) {
-              self.search_results_view.views[i].closeClassificationDetailView();
-            }
-          });
-        }
-        else if (this.$el.find('#detailed_view').is(':visible')) {
-          this.$el.find('#detailed_view').fadeOut('fast', function() {
-            self.$el.find('#chart_view').show();
-            self.$el.find('#stats').show();
-
-            //close classification screens
-
-            for (var i in self.search_results_view.views) {
-              self.search_results_view.views[i].closeClassificationDetailView();
-            }
-          });
-        }
-
-        this.selected = 'chart';
-      }
+      
     },
 
     _reset: function() {
@@ -346,9 +270,7 @@
 
       //set up views
 
-      this.search_results_view = new SearchResult.Views.List({
-        collection: new SearchResult.Collection(),
-      });
+      this.search_results_view = new SearchResult.Views.List();
 
       this.chart_view = new Job.Views.Chart({
         collection: new Backbone.Collection()
