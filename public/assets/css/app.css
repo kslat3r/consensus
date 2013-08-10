@@ -274,7 +274,7 @@ div#instructions img {
 
 div#instructions p {
 	display: block;
-    left: 40px;
+    left: 25px;
     max-width: 300px;
     overflow: hidden;
     position: absolute;
@@ -293,7 +293,9 @@ div#instructions img.chart {
 }
 
 div#instructions p.chart {
-	left: 460px;
+	left: 500px;
+	top: 75px;
+	font-size: 150%;
 }
 
 div#loading {
@@ -525,13 +527,14 @@ div#alert div.content {
 	}
 
 	div#instructions img {
-		left: 2%;    
+		left: 2%;
+		height: 100px;    
 	}
 
 	div#instructions p {
 		font-size: 140%;
-	    left: 13%;    
-	    top: 127px;
+	    left: 6%;    
+	    top: 83px;
 	    width: 220px;
 	}
 
@@ -554,6 +557,6 @@ div#alert div.content {
 	}
 	
 	div#instructions p.chart {
-		left: 435px;
+		left: 480px;
 	}
 }
