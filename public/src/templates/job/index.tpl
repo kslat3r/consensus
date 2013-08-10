@@ -3,7 +3,7 @@
         <ul>
             <li class="search">
                 <form id="search">
-                    <input type="text" placeholder="Enter your search term" class="value" value="<%= job != null ? job.get('term') : '' %>" id="term" />
+                    <input type="text" placeholder="" class="value" value="<%= job != null ? job.get('term') : '' %>" id="term" />
                     <input type="submit" value="" class="submit" id="submit" />
                 </form>
             </li>
@@ -20,6 +20,11 @@
         <div id="chart_view" class="<%= selected == 'results' ? 'hidden' : '' %>"></div>    
     <% }
     else { %>
-        <!-- Some instructions are needed here -->
+        <div id="instructions">
+            <img src="/assets/images/arrow_flip.png" alt="" class="search" />
+            <p class="search">Enter your search term here</p>
+            <img src="/assets/images/arrow.png" alt="" class="chart" />
+            <p class="chart">Click here for the chart view</p>
+        </div>
     <% } %>
 </div>

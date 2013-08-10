@@ -101,6 +101,7 @@
       var self = this;
       window.onbeforeunload = function() {
         if (self.job != null) {
+          clearTimeout(self.timer);
           self.job.delete(false);
         }
       };

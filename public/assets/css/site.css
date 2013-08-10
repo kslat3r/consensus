@@ -1,0 +1,120 @@
+@import url(http://fonts.googleapis.com/css?family=Cutive);
+
+body {
+	background-color: #fff;
+	font-family: Arial;
+	font-size: 0.8em;
+	color: #333;
+	width: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.centre {
+	text-align: center;
+}
+
+.hidden {
+	display: none;
+}
+
+.clear {
+	height: 1px;
+	clear: both;
+	width: 100%;
+}
+
+.floatleft {
+	float: left;
+}
+
+.floatright {
+	float: right;
+}
+
+.alignright {
+	text-align: right;
+}
+
+div.cont {
+	max-width: 800px;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+div#header {
+	margin-top: 20px;
+}
+
+div#header div.cont {
+	max-width: 800px;
+}
+
+div#header div#signin {
+	padding-top: 22px;
+}
+
+div#content {
+	margin-top: 20px;
+	background: #bbffaa; /* Old browsers */
+	background: -moz-linear-gradient(left,  #bbffaa 0%, #dbffd1 50%, #bbffaa 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bbffaa), color-stop(50%,#dbffd1), color-stop(100%,#bbffaa)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* IE10+ */
+	background: linear-gradient(to right,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbffaa', endColorstr='#bbffaa',GradientType=1 ); /* IE6-9 */	
+}
+
+div#content div.cont {
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+
+div#content div.cont div.floatleft {
+	width: 60%;
+	max-width: 60%;
+	margin-top: 20px;
+}
+
+div#content div.cont h2 {
+	font-family: Cutive;
+	font-size: 150%;
+}
+
+div#content div.cont div.floatleft ul {
+	margin-top: 30px;
+	list-style-type: disc;
+	font-size: 110%;
+	list-style-position: inside;
+	margin-bottom: 40px;
+}
+
+div#content div.cont div.floatleft ul li {
+	margin-bottom: 10px;
+}
+
+div#content div.cont div.floatleft a {
+	margin-left: -5px;
+}
+
+div#footer {
+	min-height: 300px;
+	background-color: #fff;
+}
+
+div#footer div.cont {
+	margin-top: 20px;	
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+div#footer div.cont h2 {
+	font-family: Cutive;
+	font-size: 150%;
+}
+
+div.copy {
+	margin-top: 10px;
+	font-size: 80%;
+}

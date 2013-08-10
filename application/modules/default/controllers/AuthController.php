@@ -17,11 +17,7 @@
             $this->_helper->redirector('login', 'auth');
         }
 
-        public function loginAction() {            
-            $this->_checkLoggedIn();
-        }
-
-        public function oauthAction() {
+        public function loginAction() {
             $this->_checkLoggedIn();
 
             $this->_helper->layout()->disableLayout();
@@ -96,7 +92,7 @@
             $Session = Zend_Registry::get('session');
             $Session->delete();
 
-            $this->_helper->redirector('login', 'auth');
+            $this->_helper->redirector('index', 'index');
             return;
         }
 

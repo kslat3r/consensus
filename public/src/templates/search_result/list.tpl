@@ -21,5 +21,7 @@
 else { %>
     <div id="loading" class="centre">
         <img src="/assets/images/throbber_big.gif" alt="" class="throbber" />
+        <br/><br/>
+        Performing your search, won't be long!
     </div>
 <% } %>

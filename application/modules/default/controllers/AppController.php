@@ -14,7 +14,7 @@
             $Session = Zend_Registry::get('session');
 
             if (!is_array($Session->access_token)) {
-                $this->_helper->redirector('login', 'auth');
+                $this->_helper->redirector('index', 'index');
             }
         }
 

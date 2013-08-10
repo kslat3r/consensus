@@ -97,7 +97,7 @@
     shown_threshold: 20,
     max_shown_threshold: 100,
 
-    window_threshold: 80,
+    window_threshold: 50,
     loading_old: false,
     load_old_scroll: false,
     old_scroll_top: 0,
@@ -115,9 +115,6 @@
       $(window).scroll(function(e) {
         var window_height = $(document).height()/ 2;
         var scroll_top    = $(window).scrollTop();
-
-        console.log(scroll_top);
-        console.log(window_height);
 
         if (scroll_top > self.old_scroll_top) {
           if (((scroll_top / window_height) * 100) > self.window_threshold) {
