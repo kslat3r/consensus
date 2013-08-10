@@ -106,6 +106,10 @@ div#content div.cont div.floatleft ul li {
 	margin-left: 10px;
 }
 
+div#content div.cont div.floatleft ul li em {
+
+}
+
 div#content div.cont div.floatleft a {
 	margin-left: -5px;
 }
@@ -133,15 +137,24 @@ div#howitworks div.cont ul {
 div#howitworks div.cont ul li {
 	width: 100%;
 	margin-bottom: 30px;
+	border-bottom: 1px dotted #bbb;
+	padding-bottom: 40px;
+}
+
+div#howitworks div.cont ul li:last-child {
+	border-bottom: 0;
 }
 
 div#howitworks div.cont ul li img {
 	float: left;
 	margin-right: 5%;
+	-moz-box-shadow: 0px 10px 14px #888888; /* FF3.5+ */
+	-webkit-box-shadow: 0px 10px 14px #888888; /* Saf3.0+, Chrome */
+	box-shadow: 0px 10px 14px #888888; /* Opera 10.5, IE 9 */
 }
 
 div#howitworks div.cont ul li p {
-	margin-top: 20px;
+	margin-top: 40px;
 	float: left;
 	width: 60%;
 }
