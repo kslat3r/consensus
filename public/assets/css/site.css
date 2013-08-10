@@ -167,18 +167,104 @@ div#howitworks div.cont ul li.floatright img {
 div#howitworks div.cont ul li.floatright p {
 	float: left;
 	margin-right: 4%;
+	text-align: right;
 }
 
 div#footer {
 	padding-top: 20px;
 	padding-bottom: 20px;
-	/*background: #bababa;
-	background: -moz-linear-gradient(left,  #bababa 0%, #d1d1d1 50%, #bababa 100%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#bababa), color-stop(50%,#d1d1d1), color-stop(100%,#bababa));
-	background: -webkit-linear-gradient(left,  #bababa 0%,#d1d1d1 50%,#bababa 100%);
-	background: -o-linear-gradient(left,  #bababa 0%,#d1d1d1 50%,#bababa 100%);
-	background: -ms-linear-gradient(left,  #bababa 0%,#d1d1d1 50%,#bababa 100%);
-	background: linear-gradient(to right,  #bababa 0%,#d1d1d1 50%,#bababa 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bababa', endColorstr='#bababa',GradientType=1 );*/
 	font-size: 80%;
+}
+
+/* TABLET */
+
+@media only screen and (max-width : 1024px) and (min-width : 640px) {	
+	div#howitworks div.cont ul li p {
+		width: 55%;
+	}
+
+	div.cont {
+		width: 96%;
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+}
+
+/* PHONE */
+
+@media only screen and (max-width : 640px) {
+	div#header div.floatleft {
+		float: none;
+	}
+
+	div#header div.floatleft a {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+
+	div#header div.floatright {
+		float: none;
+		width: 100%;
+		text-align: center;
+	}
+
+	div#content {
+		padding-left: 2%;
+		padding-right: 2%;
+		width: 96%;		
+	}
+
+	div#content div.cont {
+		padding-top: 10px;
+		padding-bottom: 0;
+	}
+
+	div#content div.cont div.floatleft {
+		float: none;
+		width: 97%;
+		max-width: 97%;
+		margin-left: 3%;
+	}
+
+	div#content div.cont div.floatright {
+		margin-top: 0;
+		margin-left: 5%;    	
+    	width: 95%;
+	}
+
+	div#content a.signin {
+		display: none;
+	}
+
+	div#howitworks div.cont {
+		padding-left: 2%;
+		padding-right: 2%;
+		width: 96%;
+	}
+
+	div#howitworks {
+		min-height: auto;
+	}
+
+	div#howitworks div.cont ul li {
+		width: 100%;
+		text-align: center;
+	}
+
+	div#howitworks div.cont ul li:last-child {
+		padding-bottom: 0;
+	}
+
+	div#howitworks div.cont ul li img {
+		float: none !important;
+		margin-right: 0 !important;
+	}
+
+	div#howitworks div.cont ul li p {
+		float: none;
+		width: 90%;
+		margin-left: 4%;
+		text-align: center !important;
+	}
 }
