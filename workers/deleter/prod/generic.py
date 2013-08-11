@@ -90,6 +90,11 @@ class Factory(object):
         self._database = self._database[self._collection]
 
     def find_by_id(self, id):
+        details = self._database.find_one({'_id': ObjectId(id)})
+    
+        if (details == None):
+            return None
+                    
         return getattr(__import__('consensus'), self._className)(self._database.find_one({'_id': ObjectId(id)}))
 
     def find(self, data = None, order_by = None, direction = None, limit = None):
