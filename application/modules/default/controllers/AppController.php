@@ -25,8 +25,6 @@
 
             $this->_Session->show_overlay = false;
             $this->_Session->save();
-
-            $this->view->show_overlay = true;
         }
     }
 ?>
