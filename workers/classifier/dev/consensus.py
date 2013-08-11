@@ -21,6 +21,7 @@ class Job(generic.Base):
 	def execute(self):
 		self.set('executing', True)
 		self.set('started', True)
+		self.set('api_limit', False)
 		self.save()
 
 		i = 0
@@ -39,23 +40,28 @@ class Job(generic.Base):
 		sessions = Sessions()
 		session = sessions.find_by_id(self.get('session_id'))
 
-		twitter 		= scraper.Twitter(self, session, self.get('term'), self._numResults, params)
-		searchResults 	= twitter.run()
+		try:
+			twitter 		= scraper.Twitter(self, session, self.get('term'), self._numResults, params)
+			searchResults 	= twitter.run()
 
-		scoring_bands = ScoringBands()
-		scoring_bands = scoring_bands.find()
+			scoring_bands = ScoringBands()
+			scoring_bands = scoring_bands.find()
 
-		negate_tokens = NegateTokens()
-		negate_tokens = negate_tokens.find()
+			negate_tokens = NegateTokens()
+			negate_tokens = negate_tokens.find()
 
-		if (searchResults != None):
-			i = i + 1
-			for searchResult in searchResults:
-				searchResult.classify(negate_tokens, scoring_bands, i)
+			if (searchResults != None):
 				i = i + 1
+				for searchResult in searchResults:
+					searchResult.classify(negate_tokens, scoring_bands, i)
+					i = i + 1
 
-		self.set('executing', False)
-		self.save()
+			self.set('executing', False)
+			self.save()	
+		except: 
+			self.set('executing', False)
+			self.set('api_limit', True)
+			self.save()		
 
 class NegateTokens(generic.Factory):
 	_pk = '_id'

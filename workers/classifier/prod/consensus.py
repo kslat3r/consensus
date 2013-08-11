@@ -21,6 +21,7 @@ class Job(generic.Base):
 	def execute(self):
 		self.set('executing', True)
 		self.set('started', True)
+		self.set('api_limit', False)
 		self.save()
 
 		i = 0
@@ -39,23 +40,28 @@ class Job(generic.Base):
 		sessions = Sessions()
 		session = sessions.find_by_id(self.get('session_id'))
 
-		twitter 		= scraper.Twitter(self, session, self.get('term'), self._numResults, params)
-		searchResults 	= twitter.run()
+		try:
+			twitter 		= scraper.Twitter(self, session, self.get('term'), self._numResults, params)
+			searchResults 	= twitter.run()
 
-		scoring_bands = ScoringBands()
-		scoring_bands = scoring_bands.find()
+			scoring_bands = ScoringBands()
+			scoring_bands = scoring_bands.find()
 
-		negate_tokens = NegateTokens()
-		negate_tokens = negate_tokens.find()
+			negate_tokens = NegateTokens()
+			negate_tokens = negate_tokens.find()
 
-		if (searchResults != None):
-			i = i + 1
-			for searchResult in searchResults:
-				searchResult.classify(negate_tokens, scoring_bands, i)
+			if (searchResults != None):
 				i = i + 1
+				for searchResult in searchResults:
+					searchResult.classify(negate_tokens, scoring_bands, i)
+					i = i + 1
 
-		self.set('executing', False)
-		self.save()
+			self.set('executing', False)
+			self.save()	
+		except: 
+			self.set('executing', False)
+			self.set('api_limit', True)
+			self.save()		
 
 class NegateTokens(generic.Factory):
 	_pk = '_id'
@@ -233,19 +239,21 @@ class Tokens(generic.Factory):
 	def tokenise(self, str, scoringBands):
 		out = []
 
-		chunks = re.findall(r'([a-zA-Z0-9\'\-]+)', str.value)
+		#chunks = re.findall(r'([a-zA-Z0-9\'\-]+)', str.value)
+		chunks = str.value.split()
 
-		for chunk in chunks:
-			chunk = chunk.strip("'")
+		if chunks != None:
+			for chunk in chunks:
+				#chunk = chunk.strip("'")
 
-			if (len(chunk) != 0):
-				tokens = self.find({'value': chunk})
+				if (len(chunk) != 0):
+					tokens = self.find({'value': chunk})
 
-				if (tokens != None and len(tokens) > 0 and isinstance(tokens[0], Token)):
-					out.append(tokens[0])					
-				else:					
-					token = Token({'value': chunk, 'score': 0})
-					out.append(token)
+					if (tokens != None and len(tokens) > 0 and isinstance(tokens[0], Token)):
+						out.append(tokens[0])					
+					else:					
+						token = Token({'value': chunk, 'score': 0})
+						out.append(token)
 
 		return out
 

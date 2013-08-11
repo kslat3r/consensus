@@ -237,6 +237,12 @@
                       }
                     }
 
+                    if (resp.api_limit == true) {
+                      self.error('Looks like you\'ve reached your Twitter API limit! You may need to wait a while before searching again');
+                      self._reset();
+                      self.render();
+                    }
+
                     self.ajaxOccurring = false;
                   });                  
                 }
