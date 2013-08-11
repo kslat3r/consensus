@@ -192,7 +192,7 @@
         to_id: this.shown.at(this.shown.length - 1).mongoId(),
         order_by: 'source_date_created_timestamp',
         direction: -1,
-        limit: 25
+        limit: 50
       };
 
       //make request
