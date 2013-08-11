@@ -190,7 +190,7 @@ div#toolbar ul li.logout img {
 div#toolbar ul li.search {
 	margin-left: 1%;
     margin-right: 3%;
-    width: 70%;
+    width: 64%;
 	border-right: none;
 }
 
@@ -243,6 +243,18 @@ div#toolbar ul li.search form#search input.submit.throbber {
 
 div#toolbar ul li a {
 	
+}
+
+div#toolbar ul li.logo {
+	border-right: 0;
+	margin-right: 0;
+	padding-right: 0;
+	padding-left: 1%;
+	width: 5%;
+}
+
+div#toolbar ul li.logo img {
+	opacity: 1;
 }
 
 div#content {
@@ -476,8 +488,8 @@ div#alert div.content {
 	}
 
 	div#toolbar ul li.search {
-		width: 95%;
-		margin-left: 2.5%;
+		width: 83%;
+		margin-left: 4.5%;
 	}
 
 	div#toolbar ul li.search form#search input.submit {
@@ -491,6 +503,11 @@ div#alert div.content {
 	div#toolbar ul li.search form#search input.submit.throbber {
 		background-size: 14px 14px;
 		background-position: 2px 2px;		
+	}
+
+	div#toolbar ul li.logo {
+		margin-left: 3%;
+		width: 4%;
 	}
 
 	div#toolbar ul li.search {
@@ -527,13 +544,13 @@ div#alert div.content {
 	}
 
 	div#instructions img {
-		left: 2%;
+		left: 8%;
 		height: 100px;    
 	}
 
 	div#instructions p {
 		font-size: 140%;
-	    left: 6%;    
+	    left: 11%;    
 	    top: 83px;
 	    width: 220px;
 	}
@@ -566,11 +583,14 @@ div#alert div.content {
 	}
 
 	div#instructions img.chart {
-		left: 675px;
+		right: 8%;
+		left: auto;
 	}
 	
 	div#instructions p.chart {
-		left: 480px;
+		right: 7%;
+		width: 250px;
+		left: auto;
 	}
 
 	div#toolbar ul li.search form#search input.submit.throbber {

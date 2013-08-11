@@ -1,6 +1,9 @@
 <div id="toolbar_wrapper">
     <div id="toolbar">
         <ul>
+            <li class="logo">
+                <a href="/"><img src="/assets/images/logo_small.png" class="Consensus" /></a>
+            </li>
             <li class="search">
                 <form id="search">
                     <input type="text" placeholder="" class="value" value="<%= job != null ? job.get('term') : '' %>" id="term" />
