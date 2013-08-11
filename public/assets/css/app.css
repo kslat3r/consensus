@@ -542,6 +542,19 @@ div#alert div.content {
 	div#instructions p.chart {
 		display: none;
 	}
+
+	div.info {
+		margin-top: 2px;
+	}
+
+	div.value {
+		margin-bottom: 10px;
+	}
+
+	div#content {
+		top: 75px;
+		margin-top: 75px;
+	}
 }
 
 @media only screen and (max-width : 1024px) and (min-width : 640px) {
@@ -558,5 +571,15 @@ div#alert div.content {
 	
 	div#instructions p.chart {
 		left: 480px;
+	}
+
+	div#toolbar ul li.search form#search input.submit.throbber {
+		background-size: 14px 14px;
+		background-position: 2px 2px;		
+	}
+
+	div#content {
+		top: 75px;
+		margin-top: 75px;
 	}
 }
