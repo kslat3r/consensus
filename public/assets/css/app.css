@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Indie+Flower);
+@import url(http://fonts.googleapis.com/css?family=Cutive);
 
 body {
 	background-color: #fff;
@@ -207,7 +208,7 @@ div#toolbar ul li.list {
 div#toolbar ul li img {
 	width: 24px;
 	height: 24px;
-	opacity: 0.5;
+	opacity: 0.25;
 }
 
 div#toolbar ul li.search form#search {
@@ -429,6 +430,26 @@ div#content div#load_scroll {
 	margin-top: 10px;
 }
 
+div#content div#chart_view div.highcharts-container {
+	padding-top: 20px;
+	margin-bottom: 20px;
+}
+
+div#content div#chart_view h3 {
+	padding-top: 20px;
+	font-size: 110%;
+	font-family: Cutive;
+}
+
+div#content div#chart_view em {
+	color: #BBBBBB;
+    float: right;
+    font-size: 90%;
+    font-style: italic;
+    margin-right: 42px;
+    margin-top: -20px;
+}
+
 div#alert {
 	position: fixed;
 	top: 35%;
@@ -466,7 +487,7 @@ div#alert div.content {
 	text-align: center;
 }
 
-@media only screen and (max-width : 640px) {
+@media only screen and (max-width: 765px) {
 	div#wrapper {
 		width: 94%;
 		margin-left: auto;
@@ -572,9 +593,17 @@ div#alert div.content {
 		top: 75px;
 		margin-top: 75px;
 	}
+
+	div#content div#chart_view {
+		display: none;
+	}
+	
+	div#content div#results_view {
+		display: block !important;
+	}
 }
 
-@media only screen and (max-width : 1024px) and (min-width : 640px) {
+@media only screen and (max-width: 1024px) and (min-width: 765px) {
 	div#alert {
 		width: 50%;
 		margin-left: -28%;
@@ -601,5 +630,19 @@ div#alert div.content {
 	div#content {
 		top: 75px;
 		margin-top: 75px;
+	}
+
+	div#content div#chart_view {
+		margin-left: 0;
+	}
+
+	div#content div#chart_view h3 {
+		margin-left: 10px;
+	}
+}
+
+@media only screen and (min-width: 1024px) {
+	div#content div#chart_view div.highcharts-container {
+		margin-left: 25px;
 	}
 }

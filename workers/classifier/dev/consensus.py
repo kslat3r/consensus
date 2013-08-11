@@ -233,19 +233,21 @@ class Tokens(generic.Factory):
 	def tokenise(self, str, scoringBands):
 		out = []
 
-		chunks = re.findall(r'([a-zA-Z0-9\'\-]+)', str.value)
+		#chunks = re.findall(r'([a-zA-Z0-9\'\-]+)', str.value)
+		chunks = str.value.split()
 
-		for chunk in chunks:
-			chunk = chunk.strip("'")
+		if chunks != None:
+			for chunk in chunks:
+				#chunk = chunk.strip("'")
 
-			if (len(chunk) != 0):
-				tokens = self.find({'value': chunk})
+				if (len(chunk) != 0):
+					tokens = self.find({'value': chunk})
 
-				if (tokens != None and len(tokens) > 0 and isinstance(tokens[0], Token)):
-					out.append(tokens[0])					
-				else:					
-					token = Token({'value': chunk, 'score': 0})
-					out.append(token)
+					if (tokens != None and len(tokens) > 0 and isinstance(tokens[0], Token)):
+						out.append(tokens[0])					
+					else:					
+						token = Token({'value': chunk, 'score': 0})
+						out.append(token)
 
 		return out
 

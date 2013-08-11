@@ -55,7 +55,8 @@
     events: {
       'click input#submit': 'search',
       'keypress input#term': 'searchOnEnter',
-      'click li.view': 'switchView',
+      'click li.graph a': 'switchView',
+      'click li.list a': 'switchView',
       'focus input#search': 'searchFocussed',
       'blur input#search': 'searchBlurred'
     },
@@ -214,6 +215,10 @@
 
                   //render chart view
 
+                  if (self.chart_view.collection.length > 0) {
+                    self.chart_view.loading = false;
+                  }
+
                   self.chart_view.render();
 
                   //render
@@ -249,7 +254,27 @@
     },
 
     switchView: function(e) {
-      
+      var parent = $(e.currentTarget).parents('li');
+
+      if (parent.hasClass('selected')) {
+        return;
+      }
+
+      this.$el.find('li.selected').removeClass('selected');
+      parent.addClass('selected');
+
+      if (parent.hasClass('list')) {
+        $('div#content').find('#results_view').removeClass('hidden');
+        $('div#content').find('#chart_view').addClass('hidden');
+
+        this.selected = 'results';
+      }
+      else if (parent.hasClass('graph')) {
+        $('div#content').find('#chart_view').removeClass('hidden');
+        $('div#content').find('#results_view').addClass('hidden');
+
+        this.selected = 'chart';
+      }
     },
 
     _reset: function() {
@@ -340,41 +365,86 @@
     tagName: 'div',
 
     chart: null,
-    mins: 5,
-    title: '',
+    bar_chart: null,
 
-    all_points: [],
+    total_score: 0,
+    total_count: 0,
+    count: 0,
+    scores: [
+      {
+        color: '#bb0000',
+        y: 0
+      },
+      {
+        color: '#ff2211',
+        y: 0
+      },
+      {
+        color: '#ff4433',
+        y: 0
+      },
+      {
+        color: '#ff7766',
+        y: 0
+      },
+      {
+        color: '#ffaa99',
+        y: 0
+      },
+      {
+        color: '#bbb',
+        y: 0
+      },
+      {
+        color: '#bbffaa',
+        y: 0
+      },
+      {
+        color: '#88ff77',
+        y: 0
+      },
+      {
+        color: '#66ff33',
+        y: 0
+      },
+      {
+        color: '#22cc00',
+        y: 0
+      },
+      {
+        color: '#117700',
+        y: 0
+      }
+    ],
 
     chart_el: '',
+    bar_chart_el: '',
 
     min: null,
     max: null,
 
+    title: '',
     height: 400,
-    width: 938,
-    margin_right: 20,
-
-    select_event: true,
-    click_event: true,
+    width: 750,
+    marginRight: 40,    
     show_tooltip: true,
-    chart_click_url: null,
+
+    loading: true,
 
     initialize: function() {
-      this.mins                 = typeof(this.options.mins) != 'undefined' ? this.options.mins : this.mins;
       this.title                = typeof(this.options.title) != 'undefined' ? this.options.title : this.title;
       this.height               = typeof(this.options.height) != 'undefined' ? this.options.height : this.height;
       this.width                = typeof(this.options.width) != 'undefined' ? this.options.width : this.width;
-      this.margin_right         = typeof(this.options.margin_right) != 'undefined' ? this.options.margin_right : this.margin_right;
-      this.select_event         = typeof(this.options.select_event) != 'undefined' ? this.options.select_event : this.select_event;
-      this.click_event          = typeof(this.options.click_event) != 'undefined' ? this.options.click_event : this.click_event;
+      this.marginRight          = typeof(this.options.marginRight) != 'undefined' ? this.options.marginRight : this.marginRight;
       this.show_tooltip         = typeof(this.options.show_tooltip) != 'undefined' ? this.options.show_tooltip : this.show_tooltip;
-      this.chart_click_url      = typeof(this.options.chart_click_url) != 'undefined' ? this.options.chart_click_url : this.chart_click_url;
 
       this.chart_el = document.createElement('div');
+      this.bar_chart_el = document.createElement('div');
 
       this.collection.bind('add', this.update, this);
 
       this._createChart();
+      this._createBarChart();
     },
 
     _createChart: function() {
@@ -385,41 +455,9 @@
         chart: {
           renderTo: this.chart_el,
           type: 'spline',
-          marginRight: this.margin_right,
           height: this.height,
           width: this.width,
-          zoomType: this.select_event == true ? 'x' : null,
-          events: {
-            click: function(e) {
-              if (self.chart_click_url != null) {
-                window.location = self.chart_click_url;
-              }
-            },
-            selection: function(e) {
-              if (self.select_event == true) {
-
-                e.preventDefault();
-
-                if (typeof(e.xAxis[0]) == 'undefined' || typeof(e.xAxis[0].max) == 'undefined') {
-                  return;
-                }
-
-                var min_timestamp = e.xAxis[0].min / 1000;
-                var max_timestamp = e.xAxis[0].max / 1000;
-                var arr           = [];
-
-                _.each(self.collection.models, function(search) {
-                  if (search.get('date_created_timestamp') >= min_timestamp && search.get('date_created_timestamp') <= max_timestamp) {
-                    arr.push(search);
-                  }
-                });
-
-                if (arr.length > 0) {
-                  self._createDetailedView(arr);
-                }
-              }
-            }
-          }
+          marginRight: this.marginRight
         },
         title: {
           text: this.title
@@ -454,110 +492,112 @@
         },
         series: [
           {
-            name: 'Average result rating',
+            name: 'Average score',
             data: [],
-          }
-        ],
-        plotOptions: {
-          series: {
-            cursor: 'pointer',
-            point: {
-              events: {
-                click: function() {
-                  if (self.click_event == true) {
-
-                    var timestamp = this.x / 1000;
-
-                    //find search object
-
-                    var clicked_search = null;
-
-                    _.each(self.collection.models, function(search) {
-                      if (search.get('date_created_timestamp') == timestamp) {
-                        clicked_search = search;
-                      }
-                    });
-
-                    if (clicked_search !== null) {
-                      self._createDetailedView([clicked_search])
-                    }
-                    else {
-                      self.warning('Something went wrong. Search not found');
-                    }
-                  }
-                  else if (self.chart_click_url != null) {
-                    window.location = self.chart_click_url;
-                  }
-                }
-              }
+            marker: {
+              radius: 2
             },
-            events: {
-              click: function() {
-                if (self.chart_click_url != null) {
-                  window.location = self.chart_click_url;
-                }
-              }
-            }
+            lineWidth: 1
           }
-        }
+        ]
+      });
+    },
+
+    _createBarChart: function() {
+      this.bar_chart = new Highcharts.Chart({
+        chart: {
+          renderTo: this.bar_chart_el,
+          type: 'column',
+          height: this.height,
+          width: this.width,
+          marginRight: this.marginRight
+        },
+        title: {
+          text: this.title
+        },
+        yAxis: {
+          title: {
+            text: 'Count'
+          },
+        },
+        xAxis: {
+          categories: [
+            '-5',
+            '-4',
+            '-3',
+            '-2',
+            '-1',
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+          ],
+          title: {
+            text: 'Score'
+          },
+        },
+        tooltip: {
+          enabled: false,
+        },
+        legend: {
+          enabled: false
+        },
+        series: [{
+          name: 'Scores',
+          data: this.scores
+        }]
       });
     },
 
     update: function(model) {
 
+      var self = this;
+
+      //loop
+
+      model.get('search_results').each(function(model) {
+        if (model.get('score') != 0) {
+          self.total_score += parseFloat(model.get('score'));
+          self.total_count += 1;          
+        }
+
+        var score = Math.floor(model.get('score'));
+        self.scores[score+5].y++;
+
+        self.count++;
+      });
+
       //create point
 
-      if (parseInt(model.get('search_results').length) > 0) {
-
-        //get average
-
-        var total = 0;
-        model.get('search_results').each(function(model) {
-          total += parseFloat(model.get('score'));
-        });
-
-        var point = {
-          x: parseInt(new Date().getTime()),
-          y: parseFloat((total / model.get('search_results').length).toFixed(3))
-        };
-      }
-      else {
-        var point = {
-          x: parseInt(new Date().getTime()),
-          y: 0,
-          color: '#99173C',
-          marker: {
-            fillColor: '#99173C',
-            states: {
-              hover: {
-                fillColor: '#99173C'
-              }
-            }
-          },
-          events: {
-
-          },
-        };
-      }
-
-      this.all_points.push(point);
-
+      var point = {
+        x: parseInt(new Date().getTime()),
+        y: parseFloat((this.total_score / this.total_count).toFixed(3))
+      };
+      
       //add to series
 
       this.chart.series[0].addPoint(point);
+      this.bar_chart.series[0].setData(this.scores);
 
       //redraw
 
-      this.redraw();
+      this.chart.redraw();
+      this.bar_chart.redraw();
     },
 
     destroy: function() {
-      this.all_points             = [];
       this.chart.series[0].points = [];
 
       if (typeof(this.chart) == 'object') {
         this.chart.destroy();
         this.chart = null;
+      }
+
+      if (typeof(this.bar_chart) == 'object') {
+        this.bar_chart.destroy();
+        this.bar_chart = null;
       }
 
       this.collection.unbind();
@@ -567,47 +607,20 @@
       this.unbind();
     },
 
-    setTitle: function(title) {
-      this.chart.setTitle({text: title});
-    },
-
-    redoPoints: function() {
-      var past_time = (new Date().getTime() / 1000) - (60*parseInt(this.mins));
-      var out       = [];
-
-      if (this.min == null && this.max == null) {
-        for (var i in this.all_points) {
-          if (past_time <= (this.all_points[i].x / 1000)) {
-            out.push(this.all_points[i]);
-          }
-        }
-      }
-      else {
-        for (var i in this.all_points) {
-          if (this.all_points[i].x >= this.min && this.all_points[i].x <= this.max) {
-            out.push(this.all_points[i]);
-          }
-        }
-      }
-
-      this.chart.series[0].setData(out);
-    },
-
-    redraw: function() {
-      this.chart.redraw();
-    },
-
     render: function() {
 
       //render
 
       this.$el.html(Job.Views.Chart.__super__.render(this.template, {
-        searches: this.collection.models
+        searches: this.collection.models,
+        loading: this.loading,
+        count: this.count
       }));
 
       //replace
 
       this.$el.find('.chart').replaceWith(this.chart_el);
+      this.$el.find('.bar_chart').replaceWith(this.bar_chart_el);
 
       return this;
     }
