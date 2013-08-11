@@ -51,6 +51,7 @@
 	    		$Session 				= new Consensus_Model_Session();
 	    		$Session->session_id	= Zend_Session::getId();
 	    		$Session->date_created 	= date('Y-m-d H:i:s');
+	    		$Session->show_overlay	= true;
 	    		$Session->save();
 	    	}
 

@@ -106,6 +106,12 @@
           self.job.delete(false);
         }
       };
+
+      //close event for overlay
+
+      $('div#overlay span.close').click(function() {
+        $('div#overlay').fadeOut('fast');
+      });
     },
 
     searchOnEnter: function(e) {

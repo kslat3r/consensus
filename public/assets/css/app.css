@@ -297,7 +297,7 @@ div#instructions p {
     text-align: left;
     color: #000;
     font-size: 180%;
-    font-family: 'Indie Flower', cursive;;
+    font-family: 'Indie Flower', cursive;
 }
 
 div#instructions img.chart {
@@ -340,7 +340,8 @@ div#content div#no_results {
 	color: #aaa;
 }
 
-div#content div.result {
+div#content div.result,
+div#overlay div.result {
 	border-bottom: 1px dotted #ccc;
 	padding-bottom: 10px;
 	width: 98%;
@@ -354,13 +355,15 @@ div#content div.result.even {
 	background-color: #eee;
 }
 
-div#content div.result div.pic {
+div#content div.result div.pic,
+div#overlay div.result div.pic {
 	max-width: 6%;
 	width: 6%;
 	margin-right: 2%;
 }
 
-div#content div.result div.pic img {
+div#content div.result div.pic img,
+div#overlay div.result div.pic img {
 	width: 100%;
 	display: block;
 	background: url('/assets/images/user.png') no-repeat transparent top left;
@@ -369,16 +372,19 @@ div#content div.result div.pic img {
     border-radius: 5px 5px 5px 5px;
 }
 
-div#content div.result div.value {
+div#content div.result div.value,
+div#overlay div.result div.value {
 	width: 85%;
 	margin-right: 2%;
 }
 
-div#content div.result ul.tokens {
+div#content div.result ul.tokens,
+div#overlay div.result ul.tokens {
 
 }
 
-div#content div.result ul.tokens li {
+div#content div.result ul.tokens li,
+div#overlay div.result ul.tokens li {
 	border-bottom: 1px solid #000000;
     float: left;
     margin-bottom: 4px;
@@ -386,38 +392,46 @@ div#content div.result ul.tokens li {
     padding-bottom: 1px;
 }
 
-div#content div.result div.value div.info {
+div#content div.result div.value div.info,
+div#overlay div.result div.value div.info {
 	margin-bottom: 5px;
 }
 
-div#content div.result div.value div.info span.name {
+div#content div.result div.value div.info span.name,
+div#overlay div.result div.value div.info span.name {
 	font-weight: bold;
 }
 
-div#content div.result div.value div.info span.at_tag a {
+div#content div.result div.value div.info span.at_tag a,
+div#overlay div.result div.value div.info span.at_tag a {
 	color: #aaa;
 	font-size: 70%;
 	text-decoration: none;
 }
 
 div#content div.result div.score,
-div#content div.result div.date {
+div#content div.result div.date,
+div#overlay div.result div.score,
+div#overlay div.result div.date {
 	width: 20%;
 	text-align: right;
 }
 
-div#content div.result div.score {
+div#content div.result div.score,
+div#overlay div.result div.score {
 	font-weight: bold;
 	position: absolute;
 	top: 11px;
 	right: 1%;
 }
 
-div#content div.result:hover div.score {
+div#content div.result:hover div.score,
+div#overlay div.result:hover div.score {
 	font-size: 120%;
 }
 
-div#content div.result div.date {
+div#content div.result div.date,
+div#overlay div.result div.date {
 	position: absolute;
 	bottom: 7px;
 	right: 1%;
@@ -483,7 +497,8 @@ div#alert.error {
 	color: #bb0000;
 }
 
-div#alert.error span.close {
+div#alert.error span.close,
+div#overlay span.close {
 	width: 16px;
 	height: 16px;
 	display: block;
@@ -494,9 +509,102 @@ div#alert.error span.close {
 	cursor: pointer;
 }
 
+div#overlay span.close {
+	background: url('/assets/images/close-overlay.png') no-repeat;
+}
+
 div#alert div.content {
 	width: 100%;
 	text-align: center;
+}
+
+div#overlay {
+	height: 100%;
+    left: 0;
+    min-height: 100%;
+    min-width: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 101;
+}
+
+div#overlay div.cont {
+	width: 700px;
+	left: 50%;
+	margin-left: -370px;
+	top: 10%;
+	min-width: 700px;
+	min-height: 300px;
+	position: absolute;
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 20px;
+	position: relative;
+}
+
+div#overlay div.cont h2 {
+	font-size: 170%;
+	font-family: 'Indie Flower', cursive;;
+	margin-bottom: 10px;
+}
+
+div#overlay div.cont img.arrow {
+	height: 73px;
+	position: absolute;
+}
+
+div#overlay div.cont img.arrow.large {
+	height: 146px;
+}
+
+div#overlay div.cont p {
+	font-size: 130%;
+	font-family: 'Indie Flower', cursive;;
+	position: absolute;
+}
+
+div#overlay div.cont img.score {
+	right: 15px;
+    top: 90px;
+}
+
+div#overlay div.cont p.score {
+	right: 20px;
+	top: 160px;
+}
+
+div#overlay div.cont img.tweet {
+	left: 274px;
+    top: 124px;
+}
+
+div#overlay div.cont p.tweet {
+	left: 213px;
+    top: 268px;
+}
+
+div#overlay div.cont img.hover {
+	top: 110px;
+	left: 57px;
+}
+
+div#overlay div.cont p.hover {
+	left: 15px;
+    top: 180px;
+    width: 200px;
+}
+
+div#overlay div.cont img.class {
+	left: 435px;
+    top: 110px;
+}
+
+div#overlay div.cont p.class {
+	right: 68px;
+    top: 246px;
+    width: 204px;
 }
 
 @media only screen and (max-width: 765px) {
@@ -613,6 +721,10 @@ div#alert div.content {
 	div#content div#results_view {
 		display: block !important;
 	}
+
+	div#overlay {
+		display: none;
+	}
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 765px) {
@@ -650,6 +762,14 @@ div#alert div.content {
 
 	div#content div#chart_view h3 {
 		margin-left: 10px;
+	}
+
+	div#overlay div.cont img.hover {
+		display: none;
+	}
+
+	div#overlay div.cont p.hover {
+		display: none;
 	}
 }
 

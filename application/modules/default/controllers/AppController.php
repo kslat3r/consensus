@@ -2,6 +2,8 @@
 
     class AppController extends Zend_Controller_Action {
 
+        private $_Session = null;
+
     	public function init() {
 
             //set layout
@@ -11,15 +13,20 @@
 
             //check for access token
 
-            $Session = Zend_Registry::get('session');
+            $this->_Session = Zend_Registry::get('session');
 
-            if (!is_array($Session->access_token)) {
+            if (!is_array($this->_Session->access_token)) {
                 $this->_helper->redirector('index', 'index');
             }
         }
 
         public function indexAction() {
+            $this->view->show_overlay = $this->_Session->show_overlay;
 
+            $this->_Session->show_overlay = false;
+            $this->_Session->save();
+
+            $this->view->show_overlay = true;
         }
     }
 ?>
