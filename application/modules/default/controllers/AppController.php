@@ -25,6 +25,10 @@
 
             $this->_Session->show_overlay = false;
             $this->_Session->save();
+
+            if (APPLICATION_ENV == 'development') {
+                $this->view->show_overlay = true;
+            }
         }
     }
 ?>
