@@ -29,6 +29,14 @@
                 $Job = $this->_mapper->findById($extra[0]);
 
                 if ($Job instanceof Consensus_Model_Job) {
+
+                    #perms?
+
+                    if ($Job->session_id != $this->_Session->id) {
+                        $this->getResponse()->setHttpResponseCode(404);
+                        return;
+                    }
+
                     if ($Job->executing == false && $Job->started == true) {
                         $Job->pushToWorker();                    
                     }
@@ -74,6 +82,14 @@
                 $Job = $this->_mapper->findById($params['id']);
 
                 if ($Job instanceof Consensus_Model_Job) {
+
+                    #perms?
+
+                    if ($Job->session_id != $this->_Session->id) {
+                        $this->getResponse()->setHttpResponseCode(404);
+                        return;
+                    }
+
                     $Job->delete();
                     $this->getResponse()->setHttpResponseCode(200);
                     return;

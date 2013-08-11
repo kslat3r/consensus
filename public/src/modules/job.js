@@ -609,6 +609,10 @@
       this.collection.unbind();
       this.collection = null;
 
+      for (var i in this.scores) {
+        this.scores[i].y = 0;
+      }
+
       this.remove();
       this.unbind();
     },
