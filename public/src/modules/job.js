@@ -57,8 +57,8 @@
       'keypress input#term': 'searchOnEnter',
       'click li.graph a': 'switchView',
       'click li.list a': 'switchView',
-      'focus input#search': 'searchFocussed',
-      'blur input#search': 'searchBlurred'
+      'focus input#term': 'searchFocussed',
+      'blur input#term': 'searchBlurred'
     },
 
     //config
