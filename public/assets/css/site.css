@@ -92,6 +92,10 @@ div#content div.cont h2 {
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
 }
 
+body.error div#content div.cont h2 {
+	display: inline;
+}
+
 div#content div.cont div.floatleft ul {
 	margin-top: 30px;
 	font-size: 110%;

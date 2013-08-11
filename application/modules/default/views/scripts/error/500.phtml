@@ -1,19 +1,43 @@
-<h1>500 Internal Server Error</h1>
+<div id="header">
+	<div class="cont">
+		<div class="floatleft">
+			<a href="/"><img src="/assets/images/logo.png?<?php echo md5(uniqid()); ?>" alt="Consensus"></a>
+		</div>
+		<div class="floatright" id="signin">
+			<a href="/auth/login"><img src="/assets/images/sign_in_small.png" alt="Sign in" /></a>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+</div>
+<div id="content">
+	<div class="cont centre">
+		<img src="/assets/images/unhappy.png" alt="Whoops" />
+		<h2>500 Internal Server Error</h2>
+	</div>
+</div>
+<?php /*if (isset($this->exception)) { ?>  
+	<div id="message">
+		<div class="cont">
+			<h3>Exception information:</h3>
+			<p>
+				<b>Message:</b> 
+				<?php echo $this->exception->getMessage(); ?>
+			</p>
 
-<?php if (isset($this->exception)) { ?>  
-	<h3>Exception information:</h3>
-	<p>
-		<b>Message:</b> 
-		<?php echo $this->exception->getMessage(); ?>
-	</p>
+			<h3>Stack trace:</h3>
+			<pre>
+				<?php echo $this->exception->getTraceAsString(); ?>
+			</pre>
 
-	<h3>Stack trace:</h3>
-	<pre>
-		<?php echo $this->exception->getTraceAsString(); ?>
-	</pre>
-
-	<h3>Request Parameters:</h3>
-	<pre>
-		<?php echo $this->escape(var_export($this->request->getParams(), true)); ?>
-	</pre>
-<?php } ?>
+			<h3>Request Parameters:</h3>
+			<pre>
+				<?php echo $this->escape(var_export($this->request->getParams(), true)); ?>
+			</pre>
+		</div>
+	</div>
+<?php }*/ ?>	
+<div id="footer">
+	<div class="cont centre">
+		&copy; <a href="http://www.newlinelabs.com">Newline Labs</a> <?php echo date('Y'); ?>
+	</div>
+</div>

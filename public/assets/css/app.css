@@ -435,10 +435,22 @@ div#content div#chart_view div.highcharts-container {
 	margin-bottom: 20px;
 }
 
+div.error h2,
 div#content div#chart_view h3 {
 	padding-top: 20px;
 	font-size: 110%;
 	font-family: Cutive;
+}
+
+div.error h2 {
+	font-size: 150%;
+	display: inline;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div.error img {
+	margin-top: 40px;
 }
 
 div#content div#chart_view em {
