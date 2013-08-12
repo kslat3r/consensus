@@ -11,7 +11,7 @@ body {
 	color: #333;
 	width: 100%;
 	margin-bottom: 0;
-	padding-bottom: 0;
+	padding-bottom: 0;	
 }
 
 .centre {
@@ -67,7 +67,17 @@ div#content {
 	background: -o-linear-gradient(left,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(left,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* IE10+ */
 	background: linear-gradient(to right,  #bbffaa 0%,#dbffd1 50%,#bbffaa 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbffaa', endColorstr='#bbffaa',GradientType=1 ); /* IE6-9 */	
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bbffaa', endColorstr='#bbffaa',GradientType=1 ); /* IE6-9 */
+	position: relative;
+}
+
+div#content div#beta {
+	background: url('/assets/images/beta.png') no-repeat 0 0;	
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 div#content div.cont {
@@ -197,6 +207,10 @@ div#footer {
 		padding-left: 2%;
 		padding-right: 2%;
 	}
+
+	div#beta {
+		display: none;
+	}
 }
 
 /* PHONE */
@@ -275,5 +289,9 @@ div#footer {
 		width: 90%;
 		margin-left: 4%;
 		text-align: center !important;
+	}
+
+	div#beta {
+		display: none;
 	}
 }
