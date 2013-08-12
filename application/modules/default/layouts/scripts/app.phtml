@@ -21,7 +21,18 @@
 		<link rel="icon" type="image/png" href="/assets/images/favicon.png" />
 		<title>Consensus</title>
 	</head>
-	<body>
+
+	<?php if (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false) {
+    	if (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) { ?>
+        	<body class="chrome">
+    	<?php } 
+    	else { ?>
+        	<body class="safari">
+    	<?php }
+	}
+	else { ?>
+    	<body>
+    <?php } ?>
 		<div id="wrapper">
 			<?php echo $this->layout()->content; ?>			
 		</div>

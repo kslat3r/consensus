@@ -778,3 +778,25 @@ div#overlay div.cont p.class {
 		margin-left: 25px;
 	}
 }
+
+/* CHROME */
+
+body.chrome div#overlay div.cont,
+body.safari div#overlay div.cont {
+	min-height: 320px;
+}
+
+body.chrome div#toolbar ul li.search form#search input.value {
+	vertical-align: 5px;
+}
+
+/* SAFARI */
+
+body.safari div#toolbar ul li.search form#search input.submit {
+	vertical-align: 5px;
+}
+
+body.safari div#toolbar ul li.search form#search input.submit.throbber {
+	background: url('/assets/images/throbber_small.gif') transparent no-repeat 4px 4px;
+	background-size: 16px 16px;
+}
