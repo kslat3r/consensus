@@ -53,6 +53,8 @@
             $Session    = Zend_Registry::get('session');
             $params     = $this->getRequest()->getParams();
 
+            print_r($params);exit;
+
             if (isset($params['oauth_token']) && $Session->oauth_token != $params['oauth_token']) {
                 $this->_clearSession();
             }
