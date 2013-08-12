@@ -1,0 +1,21 @@
+NameVirtualHost *:80
+<VirtualHost *:80>
+	ServerAdmin me@edkelly.co.uk
+	ServerName consensus.nll
+	ServerAlias consensus.nll
+	DocumentRoot /var/www/consensus
+	<Directory /var/www/consensus/>
+		Options FollowSymLinks
+		AllowOverride All
+	</Directory>
+
+	ErrorLog /var/log/apache2/consensus.error.log
+	#ErrorLog /var/www/twesphere/data/logs/error.log
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel debug
+
+	CustomLog /var/log/apache2/consensus.access.log combined
+	#CustomLog /var/www/twesphere/data/logs/access.log combined
+	ServerSignature On
+</VirtualHost>

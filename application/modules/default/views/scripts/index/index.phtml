@@ -1,0 +1,58 @@
+<div id="header">
+	<div class="cont">
+		<div class="floatleft">
+			<a href="/"><img src="/assets/images/logo.png?<?php echo md5(uniqid()); ?>" alt="Consensus"></a>
+		</div>
+		<div class="floatright" id="signin">
+			<a href="/auth/login"><img src="/assets/images/sign_in_small.png" alt="Sign in" /></a>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+</div>
+<div id="content">
+	<div class="cont">
+		<div class="floatleft">
+			<h2>Analyse the sentiment of tweets in real-time.</h2>
+			<ul>
+				<li><em>View</em> the positive/negative numerical rating of collected tweets.</li>
+				<li><em>Chart</em> the average score of a search over time.</li>
+				<li><em>Source</em> the crowd perception of a keyword/brand/person/trend.</li>
+				<li>Sign in for free using your Twitter account.</li>
+			</ul>
+			<a href="/auth/login" class="signin"><img src="/assets/images/sign_in.png" alt="Sign in" /></a>
+		</div>
+		<div class="floatright alignright">
+			<ul class="slider">
+				<li><img src="/assets/images/screenshot-1.png" alt="Listings" /></li>
+				<li><img src="/assets/images/screenshot-2.png" alt="Chart" /></li>
+				<li><img src="/assets/images/screenshot-3.png" alt="Chart" /></li>
+			</ul>
+		</div>
+		<div class="clear">&nbsp;</div>
+	</div>
+</div>
+<div id="howitworks">
+	<div class="cont">
+		<h2>How it works:</h2>		
+		<ul>
+			<li class="floatleft">
+				<img src="/assets/images/howitworks-1.png" alt="The app" />
+				<p>Tweets are collected from the Twitter Search API and broken down into their component parts.</p>
+			</li>
+			<li class="floatright">				
+				<img src="/assets/images/howitworks-2.png" alt="The app" />
+				<p>Each word is analysed for its positivity or negativity, taking into account natural language context.</p>
+			</li>
+			<li class="floatleft">
+				<img src="/assets/images/howitworks-3.png" alt="The app" />
+				<p>An average score for the tweet is calculated from any scoring words within that tweet.</p>
+			</li>			
+		</ul>
+	</div>
+	<div class="clear">&nbsp;</div>
+</div>
+<div id="footer">
+	<div class="cont centre">
+		&copy; <a href="http://www.newlinelabs.com">Newline Labs</a> <?php echo date('Y'); ?>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+runtime "python"
+
+exec "deleter.py"
+
+pip "pymongo"
+
+file "config.py"
+file "generic.py"
+file "consensus.py"
