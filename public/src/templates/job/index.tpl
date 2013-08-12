@@ -23,11 +23,14 @@
         <div id="chart_view" class="<%= selected == 'results' ? 'hidden' : '' %>"></div>    
     <% }
     else { %>
-        <div id="instructions">
-            <img src="/assets/images/arrow_flip.png" alt="" class="search" />
-            <p class="search">Enter your search term here</p>
-            <img src="/assets/images/arrow.png" alt="" class="chart" />
-            <p class="chart">Click here for the chart view</p>
-        </div>
+        <% if (window.showInstructions == true) { %>
+            <div id="instructions">
+                <img src="/assets/images/arrow_flip.png" alt="" class="search" />
+                <p class="search">Enter your search term here</p>
+                <img src="/assets/images/arrow.png" alt="" class="chart" />
+                <p class="chart">Click here for the chart view</p>
+            </div>
+        <% } %>
+        <span class="intro"><img src="/assets/images/placeholder.png" /></span>
     <% } %>
 </div>

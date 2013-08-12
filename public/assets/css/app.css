@@ -449,6 +449,20 @@ div#content div#chart_view div.highcharts-container {
 	margin-bottom: 20px;
 }
 
+div#content span.intro {
+	margin-left: auto;
+	margin-right: auto;
+	top: 35%;
+	left: 50%;
+	margin-left: -25%;
+	width: 50%;
+	font-style: italic;
+	color: #bbb;
+	display: block;
+	text-align: center;
+	position: absolute;
+}
+
 div.error h2,
 div#content div#chart_view h3 {
 	padding-top: 20px;
