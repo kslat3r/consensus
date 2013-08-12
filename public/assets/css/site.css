@@ -118,6 +118,10 @@ div#content div.cont div.floatleft a {
 	margin-left: -5px;
 }
 
+div#content div.cont div.floatright img {
+	width: 284px;
+}
+
 div#howitworks {
 	min-height: 300px;
 	background-color: #fff;
