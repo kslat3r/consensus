@@ -120,7 +120,7 @@ div#content div.cont div.floatleft a {
 
 div#content div.cont div.floatright img {
 	width: 284px;
-	display: hidden;
+	display: none;
 }
 
 div#howitworks {
