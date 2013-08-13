@@ -1,4 +1,5 @@
 import re
+import sys
 import config
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -10,8 +11,11 @@ class Database:
     @staticmethod
     def instance():
         if Database._instance == None:
-            Database._instance = MongoClient('mongodb://' + config.Mongo.username + ':' + config.Mongo.password + '@' + config.Mongo.host + ':' + config.Mongo.port + '/' + config.Mongo.db_name)
-            Database._instance = Database._instance[config.Mongo.db_name]
+            try:
+                Database._instance = MongoClient('mongodb://' + config.Mongo.username + ':' + config.Mongo.password + '@' + config.Mongo.host + ':' + config.Mongo.port + '/' + config.Mongo.db_name)
+                Database._instance = Database._instance[config.Mongo.db_name]
+            except:
+                sys.exit('Database could not be found')
 
         return Database._instance
 

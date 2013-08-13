@@ -1,260 +1,141 @@
-import time
-import generic
 import re
-import json
-import scraper
 import sys
+import config
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
-class Jobs(generic.Factory):
-	_pk = '_id'
-	_collection = 'jobs'
-	_className = 'Job'
+class Database:
 
-	pass
+    _instance = None
 
-class Job(generic.Base):
-	_pk = '_id'
-	_collection = 'jobs'
-	_className = 'Job'
-	_numResults = 10
+    @staticmethod
+    def instance():
+        if Database._instance == None:
+            try:
+                Database._instance = MongoClient('mongodb://' + config.Mongo.username + ':' + config.Mongo.password + '@' + config.Mongo.host + ':' + config.Mongo.port + '/' + config.Mongo.db_name)
+                Database._instance = Database._instance[config.Mongo.db_name]
+            except:
+                sys.exit('Database could not be found')
 
-	def execute(self):
-		self.set('executing', True)
-		self.set('started', True)
-		self.save()
+        return Database._instance
+
+class Base:
 
-		#get last search result
+    _database = None
+    _details = {}
+    _pk = None
+    _collection = None
+    _classname = None
 
-		searchResults 		= SearchResults()
-		lastSearchResults	= searchResults.find({'job_id': self.id()}, 'source_date_created_timestamp', -1, 1)
+    def __init__(self, details = {}):
+        self._details = details
+        self._database = Database.instance()
+        self._database = self._database[self._collection]
 
-		params = {}
+    def __repr__(self):
+        return self._print()
 
-		if (len(lastSearchResults) == 1 and isinstance(lastSearchResults[0], SearchResult)):
-			params['since_id'] = lastSearchResults[0].get('source_id')
+    def __str__(self):
+        return self._print()
 
-		sessions = Sessions()
-		session = sessions.find_by_id(self.get('session_id'))
+    def _print(self):
+        out = '{'
 
-		twitter 		= scraper.Twitter(self, session, self.get('term'), self._numResults, params)
-		searchResults 	= twitter.run()
+        for key in self._details:
+            out += str(key) + ': \'' + str(self._details[key]) + '\', '
 
-		scoring_bands = ScoringBands()
-		scoring_bands = scoring_bands.find()
+        return out.rstrip(', ') + '}'
 
-		negate_tokens = NegateTokens()
-		negate_tokens = negate_tokens.find()
+    def get(self, attr):
+        if (attr in self._details):
+            return self._details[attr]
 
-		if (searchResults != None):
-			for searchResult in searchResults:
-				searchResult.classify(negate_tokens, scoring_bands)
+        return None
 
-		self.set('executing', False)
-		self.save()
+    def set(self, key, attr):
+        self._details[key] = attr
 
-class NegateTokens(generic.Factory):
-	_pk = '_id'
-	_collection = 'negate_tokens'
-	_className = 'NegateToken'
+    def remove(self, attr):
+        del self.details[attr]
 
-	pass
+    def toArray(self):
+        details = self._details
 
-class NegateToken(generic.Base):
-	_pk = '_id'
-	_collection = 'negate_tokens'
-	_className = 'NegateToken'
+        if self._pk in details:
+            details[self._pk] = details[self._pk].__str__()
+        
+        return details
 
-	MODIFIER = -1
+    def id(self):
+        return self._details[self._pk]
 
-	pass
+    def save(self):
+        details = self._details.copy()
 
-class ScoringBands(generic.Factory):
-	_pk = '_id'
-	_collection = 'scoring_bands'
-	_className = 'ScoringBand'
+        if (self._pk in details):
+            del details[self._pk]
+            self._database.update({'_id': self._details[self._pk]}, {'$set': details})
+        else:
+            self._details[self._pk] = self._database.insert(self._details)
 
-	pass
+    def delete(self):
+        data = {}
+        data[self._pk] = self._details[self._pk]
+        self._database.remove(data)
 
-class ScoringBand(generic.Base):
-	_pk = '_id'
-	_collection = 'scoring_bands'
-	_className = 'ScoringBand'
+class Factory:
 
-	pass
+    _database = None
+    _pk = None
+    _collection = None
+    _classname = None
 
-class SearchResults(generic.Factory):
-	_pk = 'id'
-	_collection = 'search_results'
-	_className = 'SearchResult'
+    def __init__(self):
+        self._database = Database.instance()
+        self._database = self._database[self._collection]
 
-	pass
+    def find_by_id(self, id):
+        return getattr(__import__('consensus'), self._className)(self._database.find_one({'_id': ObjectId(id)}))
 
-class SearchResult(generic.Base):
-	_pk = '_id'
-	_collection = 'search_results'
-	_className = 'SearchResult'
-
-	tokens = []
-
-	def classify(self, negateTokens, scoringBands):
-
-		#get string and tokens
-
-		str 		= generic.String(self.get('value'))
-		tokens		= Tokens()
-		self.tokens	= tokens.tokenise(str, scoringBands)
-
-		#get original scoring bands
-
-		for token in self.tokens:
-
-			#scoring band for token
-
-			for scoringBand in scoringBands:
-				if (scoringBand.get('min_score') == 0 and scoringBand.get('max_score') == 0):
-					if (float(token.get('score')) == float(scoringBand.get('min_score')) and float(token.get('score')) == float(scoringBand.get('max_score'))):
-						token.set('original_scoring_band', scoringBand.toArray())
-				else:
-					if (float(token.get('score')) >= float(scoringBand.get('min_score')) and float(token.get('score')) <= float(scoringBand.get('max_score'))):
-						token.set('original_scoring_band', scoringBand.toArray())
-
-		#do classification
-
-		self.tokens = self._regexTokens(negateTokens, str.value, self.tokens)		
-
-		#do scoring and scoring band
-
-		self.set('score', self._score(self.tokens))
-
-		scoringBand = self._scoringBand(scoringBands, self.get('score'))
-		self.set('scoring_band', json.dumps(scoringBand.toArray()))
-
-		#export tokens
-
-		tokens_out = []
-
-		for token in self.tokens:
-
-			#scoring band for token
-
-			for scoringBand in scoringBands:
-				if (scoringBand.get('min_score') == 0 and scoringBand.get('max_score') == 0):
-					if (float(token.get('score')) == float(scoringBand.get('min_score')) and float(token.get('score')) == float(scoringBand.get('max_score'))):
-						token.set('scoring_band', scoringBand.toArray())
-				else:
-					if (float(token.get('score')) >= float(scoringBand.get('min_score')) and float(token.get('score')) <= float(scoringBand.get('max_score'))):
-						token.set('scoring_band', scoringBand.toArray())
-
-			tokens_out.append(token.toArray())
-
-		self.set('tokens', json.dumps(tokens_out))
-
-		#save
-
-		self.set('classified', 1)
-		self.save()
-
-	def _regexTokens(self, regexTokens, str, tokens):
-		for regexToken in regexTokens:
-			matches = re.findall(regexToken.get('value'), str.lower())
-
-			if (len(matches) > 0):
-				for match in matches:
-
-					#find token
-
-					for token in tokens:
-
-						#does the token match?
-
-						if (token.get('value') == match):
-
-							#negate token
-
-							if (isinstance(regexToken, NegateToken)):
-								if (token.get('negate_token') == None):
-									token.set('original_score', float(token.get('score')))
-									token.assertScore(float(token.get('score')) * NegateToken.MODIFIER)
-									token.set('negate_token', regexToken.toArray())
-
-		return tokens
-
-	def _score(self, tokens):
-		total = 0
-		count = 0
-
-		for token in tokens:
-			if (token.get('score') != 0):
-				total += float(token.get('score'))
-				count += 1
-
-		if (count == 0):
-			count = 1
-
-		score = float(total / count)
-		return "%.2f" % score
-
-	def _scoringBand(self, scoringBands, score):
-		for scoringBand in scoringBands:
-			if (scoringBand.get('min_score') == 0 and scoringBand.get('max_score') == 0):
-				if (float(score) == float(scoringBand.get('min_score')) and float(score) == float(scoringBand.get('max_score'))):
-					return scoringBand
-			else:
-				if (float(score) >= float(scoringBand.get('min_score')) and float(score) <= float(scoringBand.get('max_score'))):
-					return scoringBand
-
-class Sessions(generic.Factory):
-	_pk = '_id'
-	_collection = 'sessions'
-	_className = 'Session'
-
-	pass
-
-class Session(generic.Base):
-	_pk = '_id'
-	_collection = 'sessions'
-	_className = 'Session'
-
-	MODIFIER = -1
-
-	pass
-
-class Tokens(generic.Factory):
-	_pk = '_id'
-	_collection = 'tokens'
-	_className = 'Token'
-
-	def tokenise(self, str, scoringBands):
-		out = []
-
-		chunks = re.findall(r'([a-zA-Z0-9\'\-]+)', str.value)
-
-		for chunk in chunks:
-			chunk = chunk.strip("'")
-
-			if (len(chunk) != 0):
-				tokens = self.find({'value': chunk})
-
-				if (tokens != None and len(tokens) > 0 and isinstance(tokens[0], Token)):
-					out.append(tokens[0])					
-				else:					
-					token = Token({'value': chunk, 'score': 0})
-					out.append(token)
-
-		return out
-
-class Token(generic.Base):
-	_pk = '_id'
-	_collection = 'tokens'
-	_className = 'Token'
-
-	MAX_SCORE 			= 5
-	MIN_SCORE 			= -5
-
-	def assertScore(self, score):
-		if (score < self.MIN_SCORE):
-			score = self.MIN_SCORE
-		elif (score > self.MAX_SCORE):
-			score = self.MAX_SCORE
-
-		self.set('score', score)
+    def find(self, data = None, order_by = None, direction = None, limit = None):
+        if (order_by != None and limit != None and direction != None):            
+            return self._returnInstances(self._database.find(data).sort(order_by, direction).limit(limit))
+        elif (order_by != None and direction != None):
+            return self._returnInstances(self._database.find(data).sort(order_by, direction))
+        elif (limit != None):
+            return self._returnInstances(self._database.find(data).limit(limit))
+        else:
+            return self._returnInstances(self._database.find(data))
+
+    def create(self, data):
+        data[self._pk] = self._database.insert(data)
+        return getattr(__import__('consensus'), self._className)(data)
+
+    def _returnInstances(self, rows, force_array = False):
+        out = []
+        
+        if (rows != None):
+            for row in rows:
+                instance = getattr(__import__('consensus'), self._className)(row)
+                out.append(instance)
+
+        return out
+
+class String:
+    
+    value = ''
+
+    def __init__(self, value):
+        self.value = value.lower()
+        self.value = self._stripUrls(value)
+        self.value = self._stripHashTags(value)
+        self.value = self._stripAtTags(value)
+
+    def _stripUrls(self, value):
+        return re.sub(r'/\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/i', '', value)
+
+    def _stripHashTags(self, value):
+        return re.sub(r'/\s?#(\w+)/', '', value)
+
+    def _stripAtTags(self, value):
+        return re.sub(r'/@(\w+)/', '', value)
