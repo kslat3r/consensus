@@ -1,1 +1,1 @@
-web:    sh /app/www/heroku/web-boot.sh
+web:    sh /app/heroku/web-boot.sh
