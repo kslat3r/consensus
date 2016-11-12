@@ -512,7 +512,7 @@
             marker: {
               radius: 2
             },
-            lineWidth: 1
+            lineWidth: 2
           }
         ]
       });

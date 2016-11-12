@@ -1,0 +1,527 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"e",
+				"e"
+			],
+			[
+				"group",
+				"group"
+			],
+			[
+				"response",
+				"response"
+			],
+			[
+				"model",
+				"model"
+			],
+			[
+				"Routes",
+				"Routes"
+			],
+			[
+				"init",
+				"init"
+			],
+			[
+				"Ed",
+				"Ed"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 184.0,
+		"selected_items":
+		[
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"Remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Bookmarks: Select Next"
+			]
+		],
+		"width": 561.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print('Please restart Sublime Text to finish installation')",
+			"import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print 'Please restart Sublime Text to finish installation'"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/groups.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/memberOptions.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/locations.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/models/group.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/app.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/routes.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/models/location.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/members.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/users.js",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/members.ks",
+		"/Users/kslat3r/Projects/Keleb Technologies/gio-api/controllers/index.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/controllers/locations.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/controllers/index.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/models/group.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/controllers/users.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/routes.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/lib/facebook.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/devops/mongoimport.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/devops/merge-stage.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/devops/merge-prod.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/lib/session.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/controllers/groups.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/controllers/memberOptions.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/lib/urbanairship.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/lib/pins.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/lib/error.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/package.json",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/models/memberOption.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/models/location.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/newrelic.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/app.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/config.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/models/groupOption.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/models/member.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/controllers/members.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/models/user.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/index.html",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/app.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/application.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/templates/group-members.tpl",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/helpers/AuthHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/helpers/SessionHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/controllers/GroupsController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/helpers/GeolocationHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/helpers/MapHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/views/GroupView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/collections/LocationsCollection.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/config.xml",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/lib/socketio.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/collections/FriendsCollection.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/models/GroupModel.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/views/GroupMembersView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/collections/GroupsCollection.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/controllers/IndexController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/models/LocationModel.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/views/IndexView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/controllers/AuthController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/models/UserModel.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/config.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/js/src/helpers/FacebookHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/application.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/ui/common/MessageWindow.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/ui/common/ApplicationTabGroup.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/ui/handheld/ios/ApplicationWindow.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Gruntfile.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/app.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/config.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/collections/FriendsCollection.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/routes.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/lib/chaplin.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/helpers/AuthHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/helpers/SessionHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/GroupListView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/GroupMembersView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/HomeView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/GroupView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/GroupCreateView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/Gruntfile.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/IndexView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/PageNotFoundView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/ThrobberView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/helpers/CacheHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/views/ApiDownView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/lib/exoskeleton.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/lib/backbone.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/phonegap/www/Vagrantfile",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/js/src/lib/text.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/Resources/app.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/platforms/ios/Gio/Gio-Info.plist",
+		"/Users/kslat3r/Projects/Newline Labs/gio/plugins/org.transistorsoft.cordova.background-geolocation/src/ios/CDVBackgroundGeoLocation.m",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/controllers/IndexController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/titanium/README",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/i18n/en-gb.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/helpers/i18nHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/helpers/GeolocationHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/config.xml",
+		"/Users/kslat3r/Projects/Newline Labs/gio/plugins/com.wizital.plugins.backgroundlocationenabler/www/backgroundLocationEnabler.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/plugins/com.wizital.plugins.backgroundlocationenabler/src/ios/CDVBackgroundLocationEnabler.m",
+		"/Users/kslat3r/Projects/Newline Labs/gio/plugins/org.apache.cordova.geolocation/src/ios/CDVLocation.m",
+		"/Users/kslat3r/Projects/Newline Labs/gio/platforms/ios/Gio/config.xml",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/controllers/GroupsController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/devops/build-prod.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio/devops/build-dev.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/config.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/devops/build-stage.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/helpers/ErrorHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/helpers/MapHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/views/GroupView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/controllers/ErrorController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/routes.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/views/ApiDownView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/views/PageNotFoundView.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/templates/page-not-found.tpl",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/helpers/FlashMessageHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/application.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/hooks/README.md",
+		"/Users/kslat3r/Projects/Newline Labs/gio/hooks/before_compile/apiReplace.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/devops/build-stage.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/devops/build-prod.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio-api/devops/build-dev.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio/devops/run.sh",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/helpers/SocketHelper.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/controllers/HomeController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/controllers/AuthController.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/models/LocationModel.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/models/GroupModel.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/collections/LocationsCollection.js",
+		"/Users/kslat3r/Projects/Newline Labs/gio/www/js/src/collections/GroupsCollection.js"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/kslat3r/Projects/BBC/favourite",
+			"/Users/kslat3r/Projects/BBC/memodule",
+			"/Users/kslat3r/Projects/BBC/bbcmetest",
+			"/Users/kslat3r/Projects/BBC/memodule",
+			"/Users/kslat3r/Projects/BBC/memodule/webapp/php/sharedmodules/memodule/views/module",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp/static",
+			"/Users/kslat3r/Projects/BBC/favourite",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp",
+			"/Users/kslat3r/Projects/BBC/favourite",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp",
+			"/Users/kslat3r/Projects/BBC/bbcmetest",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp",
+			"/Users/kslat3r/Projects/BBC/bbcmetest/webapp/php",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp/static",
+			"/Users/kslat3r/Projects/BBC/favourite",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp/static/modules",
+			"/Users/kslat3r/Projects/BBC/bbcmetest",
+			"/Users/kslat3r/Projects/BBC/favourite",
+			"/Users/kslat3r/Projects/BBC/favourite/webapp",
+			"/Users/kslat3r/Projects/BBC/share",
+			"/Users/kslat3r/Projects/BBC/share/webapp/php",
+			"/Users/kslat3r/Projects/BBC/sharetest/webapp/php/modules",
+			"/Users/kslat3r/Projects/BBC/share/webapp/static",
+			"/Users/kslat3r/Projects/BBC/share",
+			"/Users/kslat3r/Projects/BBC/share/webapp/static/modules/bbcshare.src",
+			"/Users/kslat3r/Projects/BBC/share/webapp/static/modules",
+			"/Users/kslat3r/Projects/fourmusic/docroot",
+			"/Users/kslat3r/Projects/fourmusic/docroot/sites/all/themes/fourmusic/scss",
+			"/Users/kslat3r/Projects/fourmusic/docroot/sites/all/themes/fourmusic/scss/base",
+			"/Users/kslat3r/Projects/fourmusic/docroot/sites/all/themes/fourmusic/templates",
+			"/Users/kslat3r/Projects/fourmusic/docroot/,/Users/kslat3r/Projects/fourmusic/docroot/sites/all/themes/fourmusic/templates",
+			"/Users/kslat3r/Projects/fourmusic/docroot/",
+			"/Users/kslat3r/Projects/fourmusic/docroot/sites/all/themes/fourmusic/scss",
+			"",
+			"/Users/kslat3r/Projects/c4press/app/stringtemplate/modules/FL01/layout",
+			"/Users/kslat3r/Projects/c4press/app/stringtemplate/modules/FL01",
+			"/Users/kslat3r/Projects/c4press/app/stringtemplate/modules/FL01/layout",
+			"",
+			".js",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"70px",
+			"defaultOptions",
+			"members:",
+			"Location",
+			"locations.",
+			"locations",
+			"});\n",
+			"findArr",
+			"gather",
+			"moment",
+			"groupNotFound",
+			"404",
+			"invalidate",
+			"error.404",
+			"404",
+			"urbanAir",
+			"invalidate",
+			"forEach",
+			"alert",
+			"Group",
+			"console",
+			"/ 1000",
+			"console.log",
+			"edit",
+			"urbanAir",
+			"Session",
+			"User",
+			"Group",
+			"moment",
+			"mongoo",
+			"console",
+			"alert",
+			"console",
+			"populate",
+			"Window",
+			"$",
+			"jquery",
+			"LocationManager",
+			"beginBackgroundTaskWithExpirationHandler",
+			"significa",
+			"locationTimeout",
+			"config-file",
+			"config-gile",
+			"NSMainNib",
+			"startMonitoringSignificantLocationChanges",
+			"respondsToS",
+			"kCLLocationAccuracyBest",
+			"watchCallbacks",
+			"addWatch",
+			"locationManager",
+			"didUpdateLocations",
+			"leaveUrl",
+			"Session",
+			"uuid",
+			"FB",
+			"crypto",
+			"self.markers",
+			"forEach",
+			"Config",
+			"recording",
+			"304",
+			"locationManager",
+			".key",
+			"console.log",
+			"create",
+			"collection",
+			"save",
+			"AUthHelp",
+			"console",
+			"Chaplin",
+			"AuthHelper",
+			"console.log",
+			"min",
+			"margin-top: 100px;",
+			"body",
+			"bootstrap",
+			"bundle",
+			"facebook.Connect",
+			"org.apache",
+			"<a href",
+			"login",
+			"www/",
+			"alert",
+			"bounding",
+			"offset",
+			"getBoundingClientRect",
+			"getBoundingClient",
+			"alert",
+			"console",
+			"duration",
+			"image",
+			"BBC_Me_Mock",
+			"BBC_Me_Adapter_User_Stub",
+			"setStubUpdates",
+			"5",
+			"10",
+			"my_pageNo",
+			"splice",
+			"brands",
+			"appId",
+			"DOM.setAttr",
+			"added",
+			"DOM.setAttr",
+			"setAttr",
+			"DOM.setAttr",
+			"setAttr",
+			"bonzo",
+			"my-tlec",
+			"my-item my-tlec",
+			"my-tlec",
+			"my-item my-tlec",
+			"getBoundingClientRect",
+			"expired",
+			"duration",
+			"MEmoduleUpdatesItem",
+			"freshNewSer",
+			"updates",
+			"$request",
+			"filterBy",
+			"my_filterBy",
+			"_favourites_url",
+			"ssl",
+			"tabs",
+			"height:",
+			"width:",
+			"5",
+			"echo",
+			"5"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"//DOM.setAttr",
+			"updates",
+			"/activityhack/",
+			"",
+			"echo",
+			"ok",
+			"\"",
+			"selected_date",
+			"max_date",
+			"min_date",
+			"module.selectedChannel.code",
+			"$module.pressDate.date.dayOfMonth$-$module.pressDate.date.monthOfYear$-$module.pressDate.date.year$",
+			"/static/info/images/lib/jqueryui/",
+			"database",
+			"/assets/img/",
+			"if user_id.nil?",
+			"@show_throbber"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 100.0
+	},
+	"project": "site.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"app/4portal-installer.iml"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+		],
+		"width": 795.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 170.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
